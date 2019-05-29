@@ -1,9 +1,9 @@
 #pragma once
 class GameObject{
 
-	void tick();
-	void beforeUpdate();
-	void afterUpdate();
+	//void tick();
+	//void beforeUpdate();
+	//void afterUpdate();
 
 public:
 	GameObject();

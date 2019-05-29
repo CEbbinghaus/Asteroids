@@ -22,12 +22,14 @@ Application::Application(const char* title, int width, int height, bool fullscre
 	m_prevTime = GetTime();
 }
 
-Application::~Application() {
+Application::~Application() 
+{
 	if (m_window)
 		DestroyGameWindow();
 }
 
-void Application::Create(const char* title, int width, int height, bool fullscreen){ 
+void Application::Create(const char* title, int width, int height, bool fullscreen)
+{ 
 	if(!m_instance)
 		m_instance = new Application(title, width, height, fullscreen); 
 }
