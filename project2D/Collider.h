@@ -1,10 +1,12 @@
 #pragma once
+#include <Vector2.h>
 #include "GameObject.h"
- 
-class Collider{
-	GameObject* parent;
+#include "Component.h"
+class Collider : public Component{
+	Vector2 position;
+	float radius;
 public:
-	Collider();
+	Collider(GameObject&, Vector2, float);
 	~Collider();
 };
 

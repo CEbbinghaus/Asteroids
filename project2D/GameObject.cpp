@@ -2,7 +2,7 @@
 
 
 
-GameObject::GameObject(){
+GameObject::GameObject() : transform(*this){
 }
 
 
