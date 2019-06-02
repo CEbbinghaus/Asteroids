@@ -2,8 +2,7 @@
 
 
 
-GameObject & Component::getParent()
-{
+GameObject & Component::getParent(){
 	return parent;
 }
 

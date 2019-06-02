@@ -1,4 +1,4 @@
-#include "Game2D.h"
+#include "Asteroids.h"
 
 #include "Application.h"
 #include "Texture.h"
@@ -6,8 +6,12 @@
 #include "Input.h"
 #include "Player.h"
 
-Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game(title, width, height, fullscreen)
-{
+#include "CM.h"
+#include "GM.h"
+
+float Game2D::deltaTime = 0;
+
+Game2D::Game2D(const char* title, int width, int height, bool fullscreen) : Game(title, width, height, fullscreen){
 	// Initalise the 2D renderer.
 	m_2dRenderer = new aie::Renderer2D();
 
@@ -37,6 +41,7 @@ Game2D::~Game2D()
 
 void Game2D::Update(float deltaTime)
 {
+	this->deltaTime = deltaTime;
 	// Update the player.
 	m_Player->Update(deltaTime);
 

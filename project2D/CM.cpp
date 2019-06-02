@@ -2,12 +2,12 @@
 
 CM* CM::Instance = new CM();
 
-void CM::RegisterCollider(Collider& col){
+void CM::RegisterCollider(Collider* col){
 	colliders.push(col);
 }
 
-void CM::RemoveCollider(Collider& col){
-	colliders.indexOf(col)
+void CM::RemoveCollider(Collider* col){
+	colliders.remove(col);
 }
 
 CM::CM(){

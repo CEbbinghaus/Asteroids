@@ -3,7 +3,7 @@
 // Creates and runs the Game2D class which contains the game loop.
 //----------------------------------------------------------------------------
 #include <crtdbg.h>
-#include "Game2D.h"
+#include "Asteroids.h"
 
 int main() 
 {

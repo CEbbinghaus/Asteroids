@@ -2,6 +2,7 @@
 #include <Vector2.h>
 #include "GameObject.h"
 #include "Component.h"
+
 class Collider : public Component{
 	Vector2 position;
 	float radius;

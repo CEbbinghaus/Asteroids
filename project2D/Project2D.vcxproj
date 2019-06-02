@@ -176,10 +176,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="CM.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="Game2D.cpp" />
+    <ClCompile Include="Asteroids.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GM.cpp" />
     <ClCompile Include="main.cpp" />
@@ -187,10 +188,11 @@
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Asteroid.h" />
     <ClInclude Include="CM.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
-    <ClInclude Include="Game2D.h" />
+    <ClInclude Include="Asteroids.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GM.h" />
     <ClInclude Include="Libary\atyp_Array.h" />

@@ -8,6 +8,8 @@
 class GameObject;
 
 class Transform : public Matrix3{
+	friend GameObject;
+
 	Matrix3 localTransform;
 	Matrix3 globalTransform;
 
@@ -17,7 +19,7 @@ class Transform : public Matrix3{
 public:
 	GameObject& gameObject;
 
-	atyp::Array<GameObject*> children;
+	atyp::Array<Transform*> children;
 
 	Transform* Parent;
 	void SetParent(Transform*);
@@ -27,8 +29,8 @@ public:
 	float Rotation;
 	
 	Transform(GameObject&);
-	Transform(GameObject&, Vector2, Vector2, float);
 	Transform(GameObject&, Matrix3);
+	Transform(GameObject&, Vector2, Vector2, float);
 	~Transform();
 
 	Transform operator *(Transform& other);
