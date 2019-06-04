@@ -7,7 +7,6 @@
 #include "Player.h"
 
 #include "CM.h"
-#include "GM.h"
 
 float Game2D::deltaTime = 0;
 

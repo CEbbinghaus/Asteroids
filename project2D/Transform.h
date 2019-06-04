@@ -17,6 +17,8 @@ class Transform : public Matrix3{
 	void updateGlobalTransform();
 
 public:
+	static Transform* root;
+
 	GameObject& gameObject;
 
 	atyp::Array<Transform*> children;

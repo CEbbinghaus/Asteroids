@@ -5,7 +5,6 @@
 #include "Asteroids.h"
 #include "Component.h"
 #include "Collider.h"
-#include "GM.h"
 
 class GameObject{
 
@@ -14,11 +13,11 @@ class GameObject{
 	void afterUpdate(float dt);
 
 	atyp::Array<Component*> components;
-	friend GM;
 
 public:
 
 	bool isActive;
+
 	Transform& transform;
 	GameObject();
 	GameObject(atyp::Array<Component*>);

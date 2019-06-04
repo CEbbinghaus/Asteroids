@@ -19,6 +19,9 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{afc86e26-fe0a-4737-a0f7-91bdd76c20b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Headers">
+      <UniqueIdentifier>{d97252c2-857c-4f20-bc21-bcf8eec8c622}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,10 +48,13 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="GM.cpp">
+    <ClCompile Include="Transform.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
+    <ClCompile Include="Master.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -98,23 +104,26 @@
     <ClInclude Include="Asteroid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="GM.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="CM.h">
-      <Filter>Engine</Filter>
+      <Filter>Engine\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
-      <Filter>Engine</Filter>
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Master.h">
+      <Filter>Engine\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Engine\Headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

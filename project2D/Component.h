@@ -2,6 +2,12 @@
 #include "GameObject.h"
 
 
+enum componentType{
+	undefined,
+	collider,
+	count
+};
+
 class Component{
 	GameObject& parent;
 
@@ -11,4 +17,3 @@ public:
 	Component(GameObject&);
 	~Component() = default;
 };
-

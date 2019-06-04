@@ -1,14 +1,17 @@
 #include "Transform.h"
 
-
+Transform* Transform::root = nullptr;
 
 void Transform::updateLocalTransform() {
-	localTransform = Matrix3();
-	Vector3 Pos = { Position.x, Position.y, 1.0f };
-	localTransform.setRotateZ(Rotation);
-	localTransform[0] += Vector3(Scale.x, Scale.x, 0);
-	localTransform[1] += Vector3(Scale.y, Scale.y, 0);
-	localTransform[2] = Pos;
+	Matrix3 _pos;
+	Matrix3 _scale;
+	Matrix3 _rot;
+
+	_pos.setPostion(Position.x, Position.y);
+	_rot.setRotateZ(Rotation);
+	_scale.setScale(Scale.x, Scale.y);
+	
+	localTransform = _pos * _rot * _scale;
 }
 
 void Transform::updateGlobalTransform(){
