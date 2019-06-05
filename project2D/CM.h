@@ -14,6 +14,8 @@ public:
 	void update(float);
 	void draw(aie::Renderer2D&);
 
+	bool Collide(Collider*, Collider*);
+
 	CM();
 	~CM();
 };

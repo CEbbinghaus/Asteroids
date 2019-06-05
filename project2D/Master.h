@@ -5,6 +5,7 @@
 #include "Level.h"
 
 class Manager{
+public:
 	Manager(){
 		Master::RegisterManager(this);
 	};

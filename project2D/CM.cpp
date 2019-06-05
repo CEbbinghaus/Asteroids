@@ -11,11 +11,21 @@ void CM::RemoveCollider(Collider* col){
 }
 
 void CM::update(float deltaTime){
+	for (Collider* c : colliders) {
+		for (Collider* oc : colliders) {
+			if(&c->getParent() == &oc->getParent())continue;
 
+		}
+	}
 }
 
 void CM::draw(aie::Renderer2D& renderer){
 
+}
+
+bool CM::Collide(Collider * a, Collider * b){
+	//TODO: Make Collisions Happen
+	return false;
 }
 
 CM::CM(){

@@ -6,7 +6,9 @@
 class Collider : public Component{
 	Vector2 position;
 	float radius;
+
 public:
+	friend CM;
 	Collider(GameObject&, Vector2, float);
 	~Collider();
 };

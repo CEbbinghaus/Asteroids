@@ -9,11 +9,12 @@ enum componentType{
 };
 
 class Component{
+
 	GameObject& parent;
 
 public:
 	GameObject& getParent();
 
 	Component(GameObject&);
-	~Component() = default;
+	virtual ~Component() = 0;
 };

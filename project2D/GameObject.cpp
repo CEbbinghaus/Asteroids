@@ -39,5 +39,8 @@ void GameObject::render(aie::Renderer2D& renderer)
 
 
 GameObject::~GameObject(){
+	for (Component* c : components) {
+		delete c;
+	}
 	delete& transform;
 }
