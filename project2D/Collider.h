@@ -4,11 +4,13 @@
 #include "Component.h"
 
 class Collider : public Component{
-	Vector2 position;
-	float radius;
 
 public:
-	friend CM;
+	Vector2 position;
+	float radius;
+	
+	Vector2 GetWorldPosition();
+
 	Collider(GameObject&, Vector2, float);
 	~Collider();
 };

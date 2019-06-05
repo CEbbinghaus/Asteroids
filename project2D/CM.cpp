@@ -14,7 +14,7 @@ void CM::update(float deltaTime){
 	for (Collider* c : colliders) {
 		for (Collider* oc : colliders) {
 			if(&c->getParent() == &oc->getParent())continue;
-
+			Collide(c, oc);
 		}
 	}
 }
@@ -24,7 +24,11 @@ void CM::draw(aie::Renderer2D& renderer){
 }
 
 bool CM::Collide(Collider * a, Collider * b){
-	//TODO: Make Collisions Happen
+	float distance = a->GetWorldPosition().dot(b->GetWorldPosition());
+	if (distance < a->radius + b->radius){
+		a->getParent().OnCollision(b->getParent());
+		return true;
+	}
 	return false;
 }
 

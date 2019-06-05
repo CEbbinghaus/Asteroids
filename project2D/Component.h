@@ -16,5 +16,6 @@ public:
 	GameObject& getParent();
 
 	Component(GameObject&);
-	virtual ~Component() = 0;
+
+	virtual ~Component();
 };

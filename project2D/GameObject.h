@@ -8,12 +8,13 @@
 
 class GameObject{
 
-	void tick();
-	void beforeUpdate(float dt);
-	void afterUpdate(float dt);
+	void tick(float);
+	void beforeUpdate(float);
+	void afterUpdate(float);
 
 	atyp::Array<Component*> components;
 
+	friend Master;
 public:
 
 	bool isActive;
@@ -25,7 +26,7 @@ public:
 	
 	virtual void update(float dt);
 	virtual void OnCollision(GameObject& other);
-	virtual void render(aie::Renderer2D& renderer);
+	virtual void draw(aie::Renderer2D& renderer);
 
 
 	virtual ~GameObject();

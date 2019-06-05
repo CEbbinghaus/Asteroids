@@ -10,8 +10,8 @@ class GameObject;
 class Transform : public Matrix3{
 	friend GameObject;
 
-	Matrix3 localTransform;
 	Matrix3 globalTransform;
+	Matrix3 localTransform;
 
 	void updateLocalTransform();
 	void updateGlobalTransform();
@@ -37,6 +37,7 @@ public:
 
 	Transform operator *(Transform& other);
 	Matrix3 operator *(Matrix3& other);
+
 	operator Matrix3();
 };
 

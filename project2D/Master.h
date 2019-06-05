@@ -9,19 +9,24 @@ public:
 	Manager(){
 		Master::RegisterManager(this);
 	};
-	int index;
 	virtual void update(float deltaTime) = 0;
 	virtual void draw(aie::Renderer2D& renderer) = 0;
 };
+
+
 
 class Master : public aie::Game{
 	static Level* root;
 	static atyp::Array<Manager*> managers;
 
+	aie::Renderer2D& camera;
+
 	virtual void Update(float deltaTime);
 	virtual void Draw();
 
 public:
+	static Master* instance;
+
 	static void RegisterManager(Manager*);
 	static void LoadLevel(Level*);
 	Master();

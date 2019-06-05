@@ -2,8 +2,7 @@
 
 
 
-void GameObject::tick(){
-	float deltaTime = Game2D::deltaTime;
+void GameObject::tick(float deltaTime){
 	beforeUpdate(deltaTime);
 	update(deltaTime);
 	afterUpdate(deltaTime);
@@ -15,7 +14,7 @@ void GameObject::beforeUpdate(float dt){
 
 void GameObject::afterUpdate(float dt){
 	for(Transform* trf : transform.children) {
-		trf->gameObject.tick();
+		trf->gameObject.tick(dt);
 	}
 }
 
@@ -33,7 +32,7 @@ void GameObject::update(float dt){}
 void GameObject::OnCollision(GameObject& other){
 }
 
-void GameObject::render(aie::Renderer2D& renderer)
+void GameObject::draw(aie::Renderer2D& renderer)
 {
 }
 
