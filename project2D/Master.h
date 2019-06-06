@@ -6,23 +6,21 @@
 
 class Manager{
 public:
-	Manager(){
-		Master::RegisterManager(this);
-	};
+	Manager();
 	virtual void update(float deltaTime) = 0;
 	virtual void draw(aie::Renderer2D& renderer) = 0;
 };
 
 
 
-class Master : public aie::Game{
-	static Level* root;
+class Master : public aie::Game {
+	static Level* level;
 	static atyp::Array<Manager*> managers;
 
 	aie::Renderer2D& camera;
 
-	virtual void Update(float deltaTime);
-	virtual void Draw();
+	void Update(float deltaTime);
+	void Draw();
 
 public:
 	static Master* instance;

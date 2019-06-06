@@ -3,18 +3,24 @@
 #include "Renderer2D.h"
 #include "Transform.h"
 #include "Asteroids.h"
-#include "Component.h"
 #include "Collider.h"
 
 class GameObject{
+	atyp::Array<Component*> components;
 
 	void tick(float);
 	void beforeUpdate(float);
+	virtual void update(float dt);
 	void afterUpdate(float);
 
-	atyp::Array<Component*> components;
 
-	friend Master;
+	void render(aie::Renderer2D&);
+	void beforeDraw(aie::Renderer2D&);
+	virtual void draw(aie::Renderer2D& renderer);
+	void afterDraw(aie::Renderer2D&);
+
+
+	virtual void OnCollision(GameObject& other);
 public:
 
 	bool isActive;
@@ -22,11 +28,6 @@ public:
 	Transform& transform;
 	GameObject();
 	GameObject(atyp::Array<Component*>);
-
-	
-	virtual void update(float dt);
-	virtual void OnCollision(GameObject& other);
-	virtual void draw(aie::Renderer2D& renderer);
 
 
 	virtual ~GameObject();

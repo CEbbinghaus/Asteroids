@@ -20,7 +20,9 @@ void CM::update(float deltaTime){
 }
 
 void CM::draw(aie::Renderer2D& renderer){
-
+	for (Collider* c : colliders) {
+		if(c->DebugRender);
+	}
 }
 
 bool CM::Collide(Collider * a, Collider * b){
