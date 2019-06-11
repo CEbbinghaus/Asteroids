@@ -2,10 +2,12 @@
 #include "atyp_Array.h"
 #include "Renderer2D.h"
 #include "Transform.h"
-#include "Asteroids.h"
-#include "Collider.h"
+
+class Component;
 
 class GameObject{
+	friend class Master;
+	friend class CM;
 	atyp::Array<Component*> components;
 
 	void tick(float);

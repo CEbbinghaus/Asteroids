@@ -1,6 +1,6 @@
 #include "CM.h"
 
-CM* CM::Instance = new CM();
+CM* CM::Instance = nullptr;
 
 void CM::RegisterCollider(Collider* col){
 	colliders.push(col);
@@ -36,8 +36,10 @@ bool CM::Collide(Collider * a, Collider * b){
 
 CM::CM(){
 	if(Instance)throw "There is Already a Instance of the Collision Manager";
+	Instance = this;
 }
 
 
 CM::~CM(){
+	Instance = nullptr;
 }

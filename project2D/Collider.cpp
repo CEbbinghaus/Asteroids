@@ -8,7 +8,9 @@ Vector2 Collider::GetWorldPosition()
 	return Vector2(m.x, m.y);
 }
 
-Collider::Collider(GameObject& parent, Vector2 pos, float rot) : Component(parent){
+Collider::Collider(GameObject& parent, Vector2 pos, float rad) : Component(parent){
+	position = pos;
+	radius = rad;
 	CM::Instance->RegisterCollider(this);
 }
 

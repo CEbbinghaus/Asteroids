@@ -1,7 +1,6 @@
 #pragma once
 #include "GameObject.h"
 
-
 enum componentType{
 	undefined,
 	collider,
@@ -17,5 +16,5 @@ public:
 
 	Component(GameObject&);
 
-	virtual ~Component();
+	virtual ~Component() = default;
 };

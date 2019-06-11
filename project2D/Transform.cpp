@@ -16,27 +16,36 @@ void Transform::updateLocalTransform() {
 
 void Transform::updateGlobalTransform(){
 	updateLocalTransform();
-	Parent->updateGlobalTransform();
-	globalTransform = (*Parent) * localTransform;
+	if(Parent)
+		Parent->updateGlobalTransform();
+
+	if(Parent)
+		globalTransform = (*Parent) * localTransform;
+	else
+		globalTransform = localTransform;
 }
 
 void Transform::SetParent(Transform* p){
 	Parent = p;
+	if(!p)Parent = root;
 }
 
 Transform::Transform(GameObject& g) : gameObject(g){
+	SetParent(nullptr);
 	Position = Vector2(0.0f, 0.0f);
 	Scale = Vector2(1.0f, 1.0f);
 	Rotation = 0.0f;
 }
 
 Transform::Transform(GameObject& g, Vector2 pos, Vector2 size, float rot) : gameObject(g) {
+	SetParent(nullptr);
 	Position = pos;
 	Scale = size;
 	Rotation = rot;
 }
 
 Transform::Transform(GameObject& g, Matrix3 origin) : gameObject(g){
+	SetParent(nullptr);
 	Position = Vector2(0.0f, 0.0f);
 	Scale = Vector2(1.0f, 1.0f);
 	Rotation = 0.0f;

@@ -27,6 +27,11 @@ public:
 
 	static void RegisterManager(Manager*);
 	static void LoadLevel(Level*);
+
+	static void CreateGame();
+	static void RunGame();
+	static void DestroyGame();
+
 	Master();
 	~Master();
 };

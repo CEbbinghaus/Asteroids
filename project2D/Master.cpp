@@ -1,4 +1,5 @@
 #include "Master.h"
+#include "CM.h"
 
 Master* Master::instance = nullptr;
 
@@ -7,9 +8,8 @@ atyp::Array<Manager*> Master::managers = {};
 
 
 void Master::Update(float deltaTime){
-	for(Manager* manager : managers) {
+	for(Manager* manager : managers)
 		manager->update(deltaTime);
-	}
 
 	if (level)
 		level->tick(deltaTime);
@@ -32,7 +32,21 @@ void Master::LoadLevel(Level* a_level){
 	Transform::root = &(level->transform);
 }
 
-Master::Master() : Game("test", 1, 1, false), camera(*(new aie::Renderer2D())){
+void Master::CreateGame(){
+	instance = new Master();
+	new CM();
+}
+
+void Master::RunGame(){
+	instance->Run();
+}
+
+void Master::DestroyGame(){
+	delete instance;
+	instance = nullptr;
+}
+
+Master::Master() : Game("Asteroids", 1920, 1080, false), camera(*(new aie::Renderer2D())){
 	level = nullptr;
 }
 
