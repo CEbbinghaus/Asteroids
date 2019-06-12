@@ -2,6 +2,7 @@
 
 #include "Includes.h"
 #include "Asteroid.h"
+#include "Player.h"
 
 enum class Object{
 	player,
@@ -15,6 +16,8 @@ class Asteroids : public Level {
 	atyp::Array<Asteroid*> deadAsteroids;
 
 public:
+
+	Player player;
 
 	void update(float);
 	void draw(aie::Renderer2D&);

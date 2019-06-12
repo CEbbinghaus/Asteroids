@@ -1,17 +1,16 @@
 #pragma once
 
-#include "Renderer2D.h"
-#include "Texture.h"
+#include "Includes.h"
 
-class Player
+class Player : public GameObject
 {
 public:
 	Player();
 	~Player();
 
-	void Update(float deltaTime);
-	void Draw(aie::Renderer2D* renderer);
-
+	void update(float deltaTime);
+	void draw(aie::Renderer2D& renderer);
+	void OnCollision(GameObject&);
 private:
 	aie::Texture* m_texture;
 

@@ -19,11 +19,13 @@ void GameObject::afterUpdate(float dt){
 	}
 }
 
-GameObject::GameObject() : transform(*(new Transform(*this))){
+GameObject::GameObject() : transform(*this){
+	id = -1;
 	isActive = true;
 }
 
-GameObject::GameObject(atyp::Array<Component*> a_components) : transform(*(new Transform(*this))) {
+GameObject::GameObject(atyp::Array<Component*> a_components) : transform(*this) {
+	id = -1;
 	components = a_components;
 	isActive = true;
 }
@@ -56,5 +58,4 @@ GameObject::~GameObject(){
 	for (Component* c : components) {
 		delete c;
 	}
-	delete& transform;
 }

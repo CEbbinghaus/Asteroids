@@ -1,47 +1,56 @@
 #include "Player.h"
 #include "Input.h"
+#include "Asteroids.h"
 
-Player::Player()
+Player::Player() : GameObject({new Collider(*this, Vector2(0.0f, 0.0f), 50.0f)})
 {
 	// Load the player's sprite.
 	m_texture = new aie::Texture("./textures/ship.png");
 
 	// Set the player's position.
-	m_posX = 600;
-	m_posY = 400;
+	transform.Position = Vector2(600, 400);
 }
 
 Player::~Player()
 {
+	id = (char)Object::player;
 	// Delete the player's sprite.
 	delete m_texture;
 	m_texture = nullptr;
 }
 
-void Player::Update(float deltaTime)
+void Player::update(float deltaTime)
 {
 	// Update input for the player.
 	aie::Input* input = aie::Input::GetInstance();
 	if (input->IsKeyDown(aie::INPUT_KEY_LEFT))
 	{
-		m_posX -= 500.0f * deltaTime;
+		transform.Position.x -= 500.0f * deltaTime;
 	}
 	if (input->IsKeyDown(aie::INPUT_KEY_RIGHT))
 	{
-		m_posX += 500.0f * deltaTime;
+		transform.Position.x += 500.0f * deltaTime;
 	}
 	if (input->IsKeyDown(aie::INPUT_KEY_UP))
 	{
-		m_posY += 500.0f * deltaTime;
+		transform.Position.y += 500.0f * deltaTime;
 	}
 	if (input->IsKeyDown(aie::INPUT_KEY_DOWN))
 	{
-		m_posY -= 500.0f * deltaTime;
+		transform.Position.y -= 500.0f * deltaTime;
 	}
 }
 
-void Player::Draw(aie::Renderer2D* renderer)
+void Player::draw(aie::Renderer2D& renderer)
 {
 	// Draw the player's sprite.
-	renderer->DrawSprite(m_texture, m_posX, m_posY);
+	renderer.DrawSprite(m_texture, transform.Position.x, transform.Position.y);
+	//renderer.DrawSpriteTransformed3x3(m_texture, transform.globalTransform);
+}
+
+void Player::OnCollision(GameObject& other){
+	if (other.id == (char)Object::asteroid){
+		//Master::application->Quit();
+		//system("pause");
+	}
 }

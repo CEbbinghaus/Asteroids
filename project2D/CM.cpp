@@ -22,7 +22,7 @@ void CM::update(float deltaTime){
 void CM::draw(aie::Renderer2D& renderer){
 	renderer.SetRenderColour(0.0f, 0.5f, 0.2f, 0.3f);
 	for (Collider* c : colliders) {
-		Vector2 finalPos = c->getParent().transform.Position + c->position;
+		Vector2 finalPos = c->GetWorldPosition();
 		if(c->DebugRender)
 			renderer.DrawCircle(finalPos.x, finalPos.y, c->radius);
 	}
@@ -30,7 +30,7 @@ void CM::draw(aie::Renderer2D& renderer){
 }
 
 bool CM::Collide(Collider * a, Collider * b){
-	float distance = a->GetWorldPosition().dot(b->GetWorldPosition());
+	float distance = (b->GetWorldPosition() - a->GetWorldPosition()).magnitude();
 	if (distance < a->radius + b->radius){
 		a->getParent().OnCollision(b->getParent());
 		return true;

@@ -1,4 +1,6 @@
 #pragma once
+#include "Texture.h"
+#include "Collider.h"
 #include "GameObject.h"
 #include "Transform.h"
 #include "Master.h"
