@@ -8,7 +8,6 @@ class Component;
 class GameObject{
 	friend class Master;
 	friend class CM;
-	atyp::Array<Component*> components;
 
 	void tick(float);
 	void beforeUpdate(float);
@@ -21,13 +20,18 @@ class GameObject{
 	virtual void draw(aie::Renderer2D& renderer);
 	void afterDraw(aie::Renderer2D&);
 
-
 	virtual void OnCollision(GameObject& other);
-public:
 
+
+protected:
+	atyp::Array<Component*> components;
+
+public:
+	char id;
 	bool isActive;
 
-	Transform& transform;
+	Transform transform;
+
 	GameObject();
 	GameObject(atyp::Array<Component*>);
 

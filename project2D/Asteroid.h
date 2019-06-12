@@ -1,10 +1,20 @@
 #pragma once
-#include "GameObject.h"
-#include "atyp_Array.h"
+#include "Includes.h"
+
+
 class Asteroid : public GameObject
 {
-	atyp::Array<Asteroid*> Asteroids;
+	float radius;
+	atyp::Array<float> points;
+
+	Vector2 velocity;
 public:
+
+	void update(float);
+	void draw(aie::Renderer2D&);
+
+	void OnCollision(GameObject& other);
+
 	Asteroid();
 	~Asteroid();
 };

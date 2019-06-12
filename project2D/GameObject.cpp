@@ -1,8 +1,9 @@
 #include "GameObject.h"
-
+#include "Component.h"
 
 
 void GameObject::tick(float deltaTime){
+	if(!isActive)return;
 	beforeUpdate(deltaTime);
 	update(deltaTime);
 	afterUpdate(deltaTime);
@@ -39,6 +40,7 @@ void GameObject::render(aie::Renderer2D& renderer){
 }
 
 void GameObject::beforeDraw(aie::Renderer2D& renderer){
+	
 }
 
 void GameObject::draw(aie::Renderer2D& renderer){}

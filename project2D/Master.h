@@ -3,6 +3,9 @@
 #include "Renderer2D.h"
 #include "atyp_Array.h"
 #include "Level.h"
+#include "Input.h"
+#include "Application.h"
+
 
 class Manager{
 public:
@@ -23,6 +26,8 @@ class Master : public aie::Game {
 	void Draw();
 
 public:
+	static aie::Input* input;
+	static aie::Application* application;
 	static Master* instance;
 
 	static void RegisterManager(Manager*);

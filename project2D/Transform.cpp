@@ -1,4 +1,5 @@
 #include "Transform.h"
+#include "GameObject.h"
 
 Transform* Transform::root = nullptr;
 
@@ -25,12 +26,30 @@ void Transform::updateGlobalTransform(){
 		globalTransform = localTransform;
 }
 
+void Transform::TransferParent(Transform* next){
+	if(Parent)
+		Parent->children.remove(this);
+
+	Parent = next;
+	
+	if(Parent)
+		Parent->children.push(this);
+}
+
 void Transform::SetParent(Transform* p){
-	Parent = p;
-	if(!p)Parent = root;
+	TransferParent(p);
+}
+
+void Transform::SetParent(GameObject* o){
+	TransferParent(&o->transform);
+}
+
+void Transform::SetParent(std::nullptr_t){
+	TransferParent(root);
 }
 
 Transform::Transform(GameObject& g) : gameObject(g){
+	Parent = nullptr;
 	SetParent(nullptr);
 	Position = Vector2(0.0f, 0.0f);
 	Scale = Vector2(1.0f, 1.0f);
@@ -38,6 +57,7 @@ Transform::Transform(GameObject& g) : gameObject(g){
 }
 
 Transform::Transform(GameObject& g, Vector2 pos, Vector2 size, float rot) : gameObject(g) {
+	Parent = nullptr;
 	SetParent(nullptr);
 	Position = pos;
 	Scale = size;
@@ -45,6 +65,7 @@ Transform::Transform(GameObject& g, Vector2 pos, Vector2 size, float rot) : game
 }
 
 Transform::Transform(GameObject& g, Matrix3 origin) : gameObject(g){
+	Parent = nullptr;
 	SetParent(nullptr);
 	Position = Vector2(0.0f, 0.0f);
 	Scale = Vector2(1.0f, 1.0f);
@@ -58,15 +79,18 @@ Transform::~Transform(){
 
 Transform Transform::operator*(Transform & other)
 {
+	updateGlobalTransform();
 	return Transform(other.gameObject, globalTransform * other.localTransform);
 }
 
 Matrix3 Transform::operator*(Matrix3 & other)
 {
+	updateGlobalTransform();
 	return Matrix3(globalTransform * other);
 }
 
 Transform::operator Matrix3(){
+	updateGlobalTransform();
 	return globalTransform;
 }
 

@@ -106,6 +106,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)\Libary;$(ProjectDir)..\bootstrap;$(ProjectDir)..\dependencies/imgui;$(ProjectDir)..\dependencies/glm;$(ProjectDir)..\..\MathLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,6 +126,7 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -143,6 +145,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)\Libary;$(ProjectDir)..\bootstrap;$(ProjectDir)..\dependencies/imgui;$(ProjectDir)..\dependencies/glm;$(ProjectDir)..\..\MathLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -165,6 +168,7 @@
       <AdditionalIncludeDirectories>$(ProjectDir)\Libary;$(ProjectDir)..\bootstrap;$(ProjectDir)..\dependencies/imgui;$(ProjectDir)..\dependencies/glm;$(ProjectDir)..\..\MathLib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>
       </AdditionalUsingDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -194,7 +198,9 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Asteroids.h" />
+    <ClInclude Include="External\mlkrng.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Includes.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Libary\atyp_Array.h" />
     <ClInclude Include="Libary\atyp_Assert.h" />

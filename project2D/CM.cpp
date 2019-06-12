@@ -20,9 +20,13 @@ void CM::update(float deltaTime){
 }
 
 void CM::draw(aie::Renderer2D& renderer){
+	renderer.SetRenderColour(0.0f, 0.5f, 0.2f, 0.3f);
 	for (Collider* c : colliders) {
-		if(c->DebugRender);
+		Vector2 finalPos = c->getParent().transform.Position + c->position;
+		if(c->DebugRender)
+			renderer.DrawCircle(finalPos.x, finalPos.y, c->radius);
 	}
+	renderer.SetRenderColour(1.0f, 1.0f, 1.0f);
 }
 
 bool CM::Collide(Collider * a, Collider * b){

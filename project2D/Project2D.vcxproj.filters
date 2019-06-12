@@ -125,5 +125,11 @@
     <ClInclude Include="Transform.h">
       <Filter>Engine\Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Includes.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="External\mlkrng.h">
+      <Filter>Libary</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

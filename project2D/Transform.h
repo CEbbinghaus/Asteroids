@@ -10,13 +10,15 @@ class GameObject;
 class Transform : public Matrix3{
 	friend GameObject;
 
-	Matrix3 globalTransform;
-	Matrix3 localTransform;
 
 	void updateLocalTransform();
 	void updateGlobalTransform();
 
 public:
+	Matrix3 globalTransform;
+	Matrix3 localTransform;
+
+
 	static Transform* root;
 
 	GameObject& gameObject;
@@ -24,7 +26,10 @@ public:
 	atyp::Array<Transform*> children;
 
 	Transform* Parent;
+	void TransferParent(Transform*);
 	void SetParent(Transform*);
+	void SetParent(GameObject*);
+	void SetParent(std::nullptr_t);
 
 	Vector2 Position;
 	Vector2 Scale;
