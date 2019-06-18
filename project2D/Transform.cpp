@@ -17,13 +17,15 @@ void Transform::updateLocalTransform() {
 
 void Transform::updateGlobalTransform(){
 	updateLocalTransform();
-	if(Parent)
-		Parent->updateGlobalTransform();
 
 	if(Parent)
-		globalTransform = (*Parent) * localTransform;
+		globalTransform = (Parent->globalTransform) * localTransform;
 	else
 		globalTransform = localTransform;
+
+	for(Transform* child : children){
+		child->updateGlobalTransform();
+	}
 }
 
 void Transform::TransferParent(Transform* next){
@@ -79,18 +81,15 @@ Transform::~Transform(){
 
 Transform Transform::operator*(Transform & other)
 {
-	updateGlobalTransform();
 	return Transform(other.gameObject, globalTransform * other.localTransform);
 }
 
 Matrix3 Transform::operator*(Matrix3 & other)
 {
-	updateGlobalTransform();
 	return Matrix3(globalTransform * other);
 }
 
 Transform::operator Matrix3(){
-	updateGlobalTransform();
 	return globalTransform;
 }
 

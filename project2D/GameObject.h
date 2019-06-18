@@ -10,9 +10,9 @@ class GameObject{
 	friend class CM;
 
 	void tick(float);
-	void beforeUpdate(float);
+	virtual void beforeUpdate(float);
 	virtual void update(float dt);
-	void afterUpdate(float);
+	virtual void afterUpdate(float);
 
 
 	void render(aie::Renderer2D&);

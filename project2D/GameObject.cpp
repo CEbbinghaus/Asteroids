@@ -10,7 +10,6 @@ void GameObject::tick(float deltaTime){
 }
 
 void GameObject::beforeUpdate(float dt){
-	transform.updateGlobalTransform();
 }
 
 void GameObject::afterUpdate(float dt){
