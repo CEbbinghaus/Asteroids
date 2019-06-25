@@ -15,25 +15,28 @@ void Asteroid::update(float deltaTime){
 	if (transform.Position.y + radius < 0)transform.Position.y = Master::application->GetWindowHeight() + radius;
 	if (transform.Position.y - radius > Master::application->GetWindowHeight())transform.Position.y = -radius;
 
+	transform.Rotation += 0.01f;
 }
 
 void Asteroid::draw(aie::Renderer2D& renderer){
 	if(!points.length)return;
 	float radOffset = (M_PI * 2) / (float)points.length;
 	float lastRadius = points[points.length - 1];
+
 	for(auto[PRadius, Index] : points){
-		//Vector3 prev = Vector3(radius * *PRadius * sinf(Index * radOffset), radius * *PRadius * cosf(Index * radOffset), 1.0f);
-		//Vector3 next = Vector3(radius * lastRadius * sinf(--Index * radOffset), radius * lastRadius * cosf(Index * radOffset), 1.0f);
 
-		//prev = transform.globalTransform * prev;
-		//next = transform.globalTransform * next;
-		//renderer.DrawLine(prev.x, prev.y, next.x, next.y);
+		Vector3 prev = Vector3(radius * *PRadius * sinf(Index * radOffset), radius * *PRadius * cosf(Index * radOffset), 1.0f);
+		--Index;
+		Vector3 next = Vector3(radius * lastRadius * sinf(Index * radOffset), radius * lastRadius * cosf(Index * radOffset), 1.0f);
 
-		float xPos =  transform.globalTransform.Pos.x + radius * *PRadius * sinf(Index * radOffset);
-		float yPos =  transform.globalTransform.Pos.y + radius * *PRadius * cosf(Index * radOffset);
-		float PxPos = transform.globalTransform.Pos.x + radius * lastRadius * sinf(--Index * radOffset);
-		float PyPos = transform.globalTransform.Pos.y + radius * lastRadius * cosf(Index * radOffset);
-		renderer.DrawLine(PxPos, PyPos, xPos, yPos);
+		prev = transform.globalTransform * prev;
+		next = transform.globalTransform * next;
+		renderer.DrawLine(prev.x, prev.y, next.x, next.y);
+		//float xPos =  transform.globalTransform.Pos.x + radius * *PRadius * sinf(Index * radOffset);
+		//float yPos =  transform.globalTransform.Pos.y + radius * *PRadius * cosf(Index * radOffset);
+		//float PxPos = transform.globalTransform.Pos.x + radius * lastRadius * sinf(--Index * radOffset);
+		//float PyPos = transform.globalTransform.Pos.y + radius * lastRadius * cosf(Index * radOffset);
+		//renderer.DrawLine(PxPos, PyPos, xPos, yPos);
 
 		lastRadius = *PRadius;
 	}

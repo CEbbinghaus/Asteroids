@@ -4,6 +4,12 @@
 
 Player::Player() : GameObject({new Collider(*this, Vector2(0.0f, 0.0f), 50.0f)})
 {
+	turret.transform.SetParent(this);
+	//turret.transform.Position = Vector2(0.0f, 0.0f);
+
+	rotVel = 0;
+	velocity = Vector2(0, 0);
+
 	// Load the player's sprite.
 	m_texture = new aie::Texture("./textures/ship.png");
 
@@ -21,25 +27,42 @@ Player::~Player()
 
 void Player::update(float deltaTime)
 {
-	float speed = 200.0f;
+	float Width = Master::application->GetWindowWidth();
+	float Height = Master::application->GetWindowHeight();
+
 	// Update input for the player.
 	aie::Input* input = aie::Input::GetInstance();
-	if (input->IsKeyDown(aie::INPUT_KEY_LEFT))
+	if (input->IsKeyDown(aie::INPUT_KEY_A))
 	{
-		transform.Position.x -= speed * deltaTime;
+		rotVel += deltaTime * RotationSpeed;
 	}
-	if (input->IsKeyDown(aie::INPUT_KEY_RIGHT))
+	if (input->IsKeyDown(aie::INPUT_KEY_D))
 	{
-		transform.Position.x += speed * deltaTime;
+		rotVel -= deltaTime * RotationSpeed;
 	}
-	if (input->IsKeyDown(aie::INPUT_KEY_UP))
+
+	rotVel *= 0.90f;
+	transform.Rotation += rotVel;
+
+	Vector2 dir(sinf(transform.Rotation), -cosf(transform.Rotation));
+
+	if (input->IsKeyDown(aie::INPUT_KEY_W))
 	{
-		transform.Position.y += speed * deltaTime;
+		velocity -= dir * MoveSpeed * deltaTime;
 	}
-	if (input->IsKeyDown(aie::INPUT_KEY_DOWN))
+	if (input->IsKeyDown(aie::INPUT_KEY_S))
 	{
-		transform.Position.y -= speed * deltaTime;
+		velocity += dir * MoveSpeed * deltaTime;
 	}
+
+	velocity *= 0.95f;
+	transform.Position += velocity;
+
+
+	if (transform.Position.x > Width)transform.Position.x = 0;
+	if (transform.Position.x < 0)transform.Position.x = Width;
+	if (transform.Position.y > Height)transform.Position.y = 0;
+	if (transform.Position.y < 0)transform.Position.y = Height;
 }
 
 void Player::draw(aie::Renderer2D& renderer)

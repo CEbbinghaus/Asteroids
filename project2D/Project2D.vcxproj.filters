@@ -57,6 +57,12 @@
     <ClCompile Include="Level.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -130,6 +136,15 @@
     </ClInclude>
     <ClInclude Include="External\mlkrng.h">
       <Filter>Libary</Filter>
+    </ClInclude>
+    <ClInclude Include="Libary\atyp_Heap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

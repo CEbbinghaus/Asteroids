@@ -77,6 +77,7 @@ Transform::Transform(GameObject& g, Matrix3 origin) : gameObject(g){
 
 
 Transform::~Transform(){
+	SetParent(nullptr);
 }
 
 Transform Transform::operator*(Transform & other)
@@ -95,5 +96,5 @@ Transform::operator Matrix3(){
 
 Matrix3 operator*(Matrix3 & lhs, Transform & rhs)
 {
-	return Matrix3(lhs * *((Matrix3*)(&rhs)));
+	return Matrix3(lhs * rhs.globalTransform);
 }

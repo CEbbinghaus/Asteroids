@@ -3,6 +3,7 @@
 #include "Includes.h"
 #include "Asteroid.h"
 #include "Player.h"
+#include "Bullet.h"
 
 enum class Object{
 	player,
@@ -12,10 +13,11 @@ enum class Object{
 };
 
 class Asteroids : public Level {
-	atyp::Array<Asteroid*> activeAsteroids;
-	atyp::Array<Asteroid*> deadAsteroids;
-
 public:
+	static Asteroids* instance;
+
+	atyp::Array<Asteroid*> activeAsteroids;
+	atyp::Array<Bullet*> bullets;
 
 	Player player;
 

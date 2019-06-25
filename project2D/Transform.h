@@ -7,7 +7,7 @@
 
 class GameObject;
 
-class Transform : public Matrix3{
+class Transform{
 	friend GameObject;
 
 
