@@ -207,6 +207,7 @@
     <ClInclude Include="Libary\atyp_BinaryTree.h" />
     <ClInclude Include="Libary\atyp_Graph.h" />
     <ClInclude Include="Libary\atyp_Hash.h" />
+    <ClInclude Include="Libary\atyp_Heap.h" />
     <ClInclude Include="Libary\atyp_List.h" />
     <ClInclude Include="Libary\atyp_Matrix.h" />
     <ClInclude Include="Libary\atyp_Queue.h" />

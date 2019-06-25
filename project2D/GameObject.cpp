@@ -10,12 +10,13 @@ void GameObject::tick(float deltaTime){
 }
 
 void GameObject::beforeUpdate(float dt){
+	transform.updateGlobalTransform();
+	for(Transform* trf : transform.children){
+		trf->gameObject.tick(dt);
+	}
 }
 
 void GameObject::afterUpdate(float dt){
-	for(Transform* trf : transform.children) {
-		trf->gameObject.tick(dt);
-	}
 }
 
 GameObject::GameObject() : transform(*this){

@@ -21,31 +21,32 @@ Player::~Player()
 
 void Player::update(float deltaTime)
 {
+	float speed = 200.0f;
 	// Update input for the player.
 	aie::Input* input = aie::Input::GetInstance();
 	if (input->IsKeyDown(aie::INPUT_KEY_LEFT))
 	{
-		transform.Position.x -= 500.0f * deltaTime;
+		transform.Position.x -= speed * deltaTime;
 	}
 	if (input->IsKeyDown(aie::INPUT_KEY_RIGHT))
 	{
-		transform.Position.x += 500.0f * deltaTime;
+		transform.Position.x += speed * deltaTime;
 	}
 	if (input->IsKeyDown(aie::INPUT_KEY_UP))
 	{
-		transform.Position.y += 500.0f * deltaTime;
+		transform.Position.y += speed * deltaTime;
 	}
 	if (input->IsKeyDown(aie::INPUT_KEY_DOWN))
 	{
-		transform.Position.y -= 500.0f * deltaTime;
+		transform.Position.y -= speed * deltaTime;
 	}
 }
 
 void Player::draw(aie::Renderer2D& renderer)
 {
 	// Draw the player's sprite.
-	renderer.DrawSprite(m_texture, transform.Position.x, transform.Position.y);
-	//renderer.DrawSpriteTransformed3x3(m_texture, transform.globalTransform);
+	//renderer.DrawSprite(m_texture, transform.Position.x, transform.Position.y);
+	renderer.DrawSpriteTransformed3x3(m_texture, transform.globalTransform);
 }
 
 void Player::OnCollision(GameObject& other){
