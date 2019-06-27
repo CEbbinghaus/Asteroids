@@ -38,20 +38,22 @@ void GameObject::OnCollision(GameObject& other){
 }
 
 void GameObject::render(aie::Renderer2D& renderer){
+	if(!isActive)return;
 	beforeDraw(renderer);
 	draw(renderer);
 	afterDraw(renderer);
 }
 
 void GameObject::beforeDraw(aie::Renderer2D& renderer){
-	
 }
 
-void GameObject::draw(aie::Renderer2D& renderer){}
+void GameObject::draw(aie::Renderer2D& renderer){
+}
 
 void GameObject::afterDraw(aie::Renderer2D& renderer){
-	for (Transform* trf : transform.children) {
-		trf->gameObject.render(renderer);
+	for (int i = 0; i < transform.children.length; ++i) {
+		Transform* child = transform.children[i];
+		child->gameObject.render(renderer);
 	}
 }
 
@@ -61,7 +63,8 @@ GameObject::~GameObject(){
 		delete c;
 	}
 
-	for(Transform* child : transform.children){
-		delete &(child->gameObject);
+	for (int i = 0; i < transform.children.length; ++i) {
+		Transform* child = transform.children[i];
+		delete child;
 	}
 }

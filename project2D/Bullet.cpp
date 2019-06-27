@@ -2,7 +2,13 @@
 
 #include "Asteroids.h"
 
+void Bullet::OnCollision(GameObject& other){
+	if (other.id != (char)Object::player)
+		Master::DeleteObject(this);
+}
+
 void Bullet::update(float deltaTime){
+	transform.Position += Direction * speed;
 	lifeSpan -= deltaTime;
 	if(lifeSpan <= 0.0f){
 		isActive = false;
@@ -14,13 +20,12 @@ void Bullet::draw(aie::Renderer2D& render) {
 	render.DrawSpriteTransformed3x3(texture, transform.globalTransform);
 }
 
-Bullet::Bullet(){
+Bullet::Bullet() : GameObject({new Collider(*this, Vector2(), 3.0f)}) {
 	id = (char)Object::bullet;
-	texture = new aie::Texture("./textures/ship.png");
+	texture = new aie::Texture("./textures/bullet.png");
 }
 
 
 Bullet::~Bullet(){
-	Asteroids::instance->bullets.remove(this);
 	delete texture;
 }

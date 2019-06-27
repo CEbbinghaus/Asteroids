@@ -4,6 +4,7 @@
 
 Player::Player() : GameObject({new Collider(*this, Vector2(0.0f, 0.0f), 50.0f)})
 {
+	id = (char)Object::player;
 	turret.transform.SetParent(this);
 	//turret.transform.Position = Vector2(0.0f, 0.0f);
 

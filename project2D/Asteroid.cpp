@@ -43,22 +43,41 @@ void Asteroid::draw(aie::Renderer2D& renderer){
 }
 
 void Asteroid::OnCollision(GameObject& other){
+	if (other.id == (char)Object::bullet) {
+		int amount = 0;
+		switch (size)
+		{
+			case 2:
+				amount = Random.get<int>(2, 4);
+			break;
 
+			case 1:
+				amount = Random.get<int>(0, 2);
+				
+			break;
+		}
+		for (int i = 0; i < amount; ++i) {
+			Asteroid* c = new Asteroid(size - 1);
+		}
+		Master::DeleteObject(this);
+	}
 }
 
-Asteroid::Asteroid() : GameObject({new Collider(*this, Vector2(1.0f, 1.0f), 10)}){
-
+Asteroid::Asteroid(int a_size) : GameObject({new Collider(*this, Vector2(1.0f, 1.0f), 10)}){
+	size = a_size;
+	float min = (float)size * 20.0f;
 	id = (char)Object::asteroid;
 
-	radius = Random.get<float>(50.0f, 100.0f);
+	radius = Random.get<float>(min, min * 2);
 
 	float rotation = Random.get<float>() * M_PI;
 	velocity = Vector2(sinf(rotation), cosf(rotation));
 
 	transform.Position = Vector2(Random.get<float>(0.0f, Master::application->GetWindowWidth()), Random.get<float>(0.0f, Master::application->GetWindowHeight()));
 
-
-	int amount = Random.get<int>(7, 10);
+	int minP = 3 *  size;
+	int maxP = 4 * size;
+	int amount = Random.get<int>(minP, maxP);
 	for(int i = 0; i < amount; i++){
 		points.push(Random.get<float>(0.3f, 1.0f));
 	}

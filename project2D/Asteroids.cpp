@@ -28,7 +28,4 @@ Asteroids::Asteroids(){
 
 Asteroids::~Asteroids(){
 	instance = nullptr;
-	for (Asteroid* a : activeAsteroids) {
-		delete a;
-	}
 }

@@ -30,6 +30,7 @@ void CM::draw(aie::Renderer2D& renderer){
 }
 
 bool CM::Collide(Collider * a, Collider * b){
+	if(a == b)return false;
 	float distance = (b->GetWorldPosition() - a->GetWorldPosition()).magnitude();
 	if (distance < a->radius + b->radius){
 		a->getParent().OnCollision(b->getParent());

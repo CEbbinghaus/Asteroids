@@ -10,13 +10,14 @@ atyp::Array<Manager*> Master::managers = {};
 
 
 void Master::Update(float deltaTime){
-	for(Manager* manager : managers)
-		manager->update(deltaTime);
-
 	if (level)
 		level->tick(deltaTime);
 
-	for(GameObject* gm : tbDeleted){
+	for (Manager* manager : managers)
+		manager->update(deltaTime);
+
+	while (tbDeleted.length) {
+		GameObject* gm = tbDeleted.pop();
 		delete gm;
 	}
 }
@@ -56,7 +57,8 @@ void Master::DestroyGame(){
 }
 
 void Master::DeleteObject(GameObject* gm){
-	instance->tbDeleted.push(gm);
+	if(instance->tbDeleted.indexOf(gm) == -1)
+		instance->tbDeleted.push(gm);
 }
 
 Master::Master() : Game("Asteroids", 1920, 1080, false), camera(*(new aie::Renderer2D())){
@@ -64,6 +66,7 @@ Master::Master() : Game("Asteroids", 1920, 1080, false), camera(*(new aie::Rende
 	if(instance)throw "There can only be One Instance of the Game";
 	input = aie::Input::GetInstance();
 	application = aie::Application::GetInstance();
+	tbDeleted = atyp::Array<GameObject*>(0);
 }
 
 

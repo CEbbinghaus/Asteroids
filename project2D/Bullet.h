@@ -12,6 +12,8 @@ class Bullet : public GameObject
 public:
 	Vector2 Direction;
 	
+	void OnCollision(GameObject&);
+
 	void update(float);
 	void draw(aie::Renderer2D&);
 

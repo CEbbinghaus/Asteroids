@@ -77,7 +77,8 @@ Transform::Transform(GameObject& g, Matrix3 origin) : gameObject(g){
 
 
 Transform::~Transform(){
-	SetParent(nullptr);
+	if (Parent)
+		Parent->children.remove(this);
 }
 
 Transform Transform::operator*(Transform & other)
