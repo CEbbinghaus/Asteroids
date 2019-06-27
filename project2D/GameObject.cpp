@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "Component.h"
+#include "Transform.h"
 
 
 void GameObject::tick(float deltaTime){
@@ -11,12 +12,13 @@ void GameObject::tick(float deltaTime){
 
 void GameObject::beforeUpdate(float dt){
 	transform.updateGlobalTransform();
-	for(Transform* trf : transform.children){
-		trf->gameObject.tick(dt);
-	}
 }
 
 void GameObject::afterUpdate(float dt){
+	for(int i = 0; i < transform.children.length; ++i){
+		Transform* child = transform.children[i];
+		child->gameObject.tick(dt);
+	}
 }
 
 GameObject::GameObject() : transform(*this){
@@ -57,5 +59,9 @@ void GameObject::afterDraw(aie::Renderer2D& renderer){
 GameObject::~GameObject(){
 	for (Component* c : components) {
 		delete c;
+	}
+
+	for(Transform* child : transform.children){
+		delete &(child->gameObject);
 	}
 }

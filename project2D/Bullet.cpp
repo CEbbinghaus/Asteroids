@@ -3,8 +3,11 @@
 #include "Asteroids.h"
 
 void Bullet::update(float deltaTime){
-	//lifeSpan -= deltaTime;
-	//if (lifeSpan <= 0.0f)isActive = false;
+	lifeSpan -= deltaTime;
+	if(lifeSpan <= 0.0f){
+		isActive = false;
+		Master::DeleteObject(this);
+	}
 }
 
 void Bullet::draw(aie::Renderer2D& render) {
@@ -13,7 +16,7 @@ void Bullet::draw(aie::Renderer2D& render) {
 
 Bullet::Bullet(){
 	id = (char)Object::bullet;
-	texture = new aie::Texture("./textures/bullet.png");
+	texture = new aie::Texture("./textures/ship.png");
 }
 
 

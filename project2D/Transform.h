@@ -15,13 +15,15 @@ class Transform{
 	void updateGlobalTransform();
 
 public:
+	GameObject& gameObject;
+
+
 	Matrix3 globalTransform;
 	Matrix3 localTransform;
 
 
 	static Transform* root;
 
-	GameObject& gameObject;
 
 	atyp::Array<Transform*> children;
 

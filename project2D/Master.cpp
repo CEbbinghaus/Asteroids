@@ -15,6 +15,10 @@ void Master::Update(float deltaTime){
 
 	if (level)
 		level->tick(deltaTime);
+
+	for(GameObject* gm : tbDeleted){
+		delete gm;
+	}
 }
 
 void Master::Draw(){
@@ -49,6 +53,10 @@ void Master::RunGame(){
 void Master::DestroyGame(){
 	delete instance;
 	instance = nullptr;
+}
+
+void Master::DeleteObject(GameObject* gm){
+	instance->tbDeleted.push(gm);
 }
 
 Master::Master() : Game("Asteroids", 1920, 1080, false), camera(*(new aie::Renderer2D())){

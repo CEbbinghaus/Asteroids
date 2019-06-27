@@ -18,12 +18,12 @@ Asteroids::Asteroids(){
 	instance = this;
 	Master::instance->LoadLevel(this);
 
-	/*if(activeAsteroids.length < 10){
+	if(activeAsteroids.length < 10){
 		for(int i = 0; i < 10; i++){
 			activeAsteroids.push(new Asteroid());
 			activeAsteroids[i]->transform.SetParent(this);
 		}
-	}*/
+	}
 }
 
 Asteroids::~Asteroids(){

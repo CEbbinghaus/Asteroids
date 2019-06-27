@@ -4,12 +4,14 @@
 #include "Asteroids.h"
 
 void Turret::shoot(){
-	Bullet* b = new Bullet();
-	Vector3 dir = transform.globalTransform.AxisY;
-	b->Direction = Vector2(dir.x, dir.y);
 
-	b->transform.SetParent(Asteroids::instance);
-	Asteroids::instance->bullets.push(b);
+	Bullet* b = new Bullet();
+	b->transform.Position = Vector2(transform.globalTransform.Pos.x, transform.globalTransform.Pos.y);
+	//Vector3 dir = transform.globalTransform.AxisY;
+	//b->Direction = Vector2(dir.x, dir.y);
+
+	//b->transform.SetParent(Asteroids::instance);
+	//Asteroids::instance->bullets.push(b);
 }
 
 void Turret::update(float deltaTime){

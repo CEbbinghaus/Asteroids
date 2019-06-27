@@ -23,7 +23,7 @@ void Asteroid::draw(aie::Renderer2D& renderer){
 	float radOffset = (M_PI * 2) / (float)points.length;
 	float lastRadius = points[points.length - 1];
 
-	for(auto[PRadius, Index] : points){
+	for(auto [PRadius, Index] : points){
 
 		Vector3 prev = Vector3(radius * *PRadius * sinf(Index * radOffset), radius * *PRadius * cosf(Index * radOffset), 1.0f);
 		--Index;

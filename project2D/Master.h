@@ -25,6 +25,7 @@ class Master : public aie::Game {
 	void Update(float deltaTime);
 	void Draw();
 
+	atyp::Array<GameObject*> tbDeleted;
 public:
 	static aie::Input* input;
 	static aie::Application* application;
@@ -36,6 +37,8 @@ public:
 	static void CreateGame();
 	static void RunGame();
 	static void DestroyGame();
+
+	static void DeleteObject(GameObject*);
 
 	Master();
 	~Master();

@@ -23,9 +23,9 @@ void Transform::updateGlobalTransform(){
 	else
 		globalTransform = localTransform;
 
-	for(Transform* child : children){
-		child->updateGlobalTransform();
-	}
+	//for(Transform* child : children){
+	//	child->updateGlobalTransform();
+	//}
 }
 
 void Transform::TransferParent(Transform* next){
