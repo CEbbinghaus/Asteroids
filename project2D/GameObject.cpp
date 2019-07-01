@@ -1,7 +1,7 @@
 #include "GameObject.h"
 #include "Component.h"
 #include "Transform.h"
-
+#include "atyp_Array.h"
 
 void GameObject::tick(float deltaTime){
 	if(!isActive)return;
@@ -65,6 +65,6 @@ GameObject::~GameObject(){
 
 	for (int i = 0; i < transform.children.length; ++i) {
 		Transform* child = transform.children[i];
-		delete child;
+		delete &(child->gameObject);
 	}
 }

@@ -10,11 +10,11 @@ atyp::Array<Manager*> Master::managers = {};
 
 
 void Master::Update(float deltaTime){
-	if (level)
-		level->tick(deltaTime);
-
 	for (Manager* manager : managers)
 		manager->update(deltaTime);
+
+	if (level)
+		level->tick(deltaTime);
 
 	while (tbDeleted.length) {
 		GameObject* gm = tbDeleted.pop();

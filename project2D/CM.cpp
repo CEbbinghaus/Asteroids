@@ -11,8 +11,11 @@ void CM::RemoveCollider(Collider* col){
 }
 
 void CM::update(float deltaTime){
-	for (Collider* c : colliders) {
-		for (Collider* oc : colliders) {
+	for(int i = 0; i < colliders.length; ++i){
+		for(int j = 0; j < colliders.length; ++j){
+			if(i == j)continue;
+			Collider* c = colliders[i];
+			Collider* oc = colliders[j];
 			if(&c->getParent() == &oc->getParent())continue;
 			Collide(c, oc);
 		}

@@ -47,34 +47,39 @@ void Asteroid::OnCollision(GameObject& other){
 		int amount = 0;
 		switch (size)
 		{
-			case 2:
+			case 3:
 				amount = Random.get<int>(2, 4);
 			break;
 
-			case 1:
+			case 2:
 				amount = Random.get<int>(0, 2);
-				
 			break;
 		}
+		float RadianOffset = Random.get<float>(0, M_PI * 2);
+		float RadianAmount = (M_PI * 2) / amount;
 		for (int i = 0; i < amount; ++i) {
-			Asteroid* c = new Asteroid(size - 1);
+			float finalRotation = RadianOffset + RadianAmount * i;
+			Vector2 direction = Vector2(sinf(finalRotation), cosf(finalRotation));
+			Vector2 currentPosition = *(Vector2*)(&(transform.globalTransform.Pos));
+			Asteroids::instance->activeAsteroids.push(new Asteroid(size - 1, direction, currentPosition + direction * Random.get<float>(radius / 2, radius)));
 		}
+		Asteroids::instance->score += (100 * size);
+
+		Asteroids::instance->activeAsteroids.remove(this);
 		Master::DeleteObject(this);
 	}
 }
 
-Asteroid::Asteroid(int a_size) : GameObject({new Collider(*this, Vector2(1.0f, 1.0f), 10)}){
+Asteroid::Asteroid(int a_size, Vector2 dir, Vector2 pos) : GameObject({new Collider(*this, Vector2(1.0f, 1.0f), 10)}){
 	size = a_size;
 	float min = (float)size * 20.0f;
 	id = (char)Object::asteroid;
 
 	radius = Random.get<float>(min, min * 2);
 
-	float rotation = Random.get<float>() * M_PI;
-	velocity = Vector2(sinf(rotation), cosf(rotation));
+	velocity = dir;
 
-	transform.Position = Vector2(Random.get<float>(0.0f, Master::application->GetWindowWidth()), Random.get<float>(0.0f, Master::application->GetWindowHeight()));
-
+	transform.Position = pos;
 	int minP = 3 *  size;
 	int maxP = 4 * size;
 	int amount = Random.get<int>(minP, maxP);
@@ -85,5 +90,5 @@ Asteroid::Asteroid(int a_size) : GameObject({new Collider(*this, Vector2(1.0f, 1
 
 
 Asteroid::~Asteroid(){
-
+	//Asteroids::instance->activeAsteroids.remove(this);
 }
