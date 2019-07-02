@@ -5,7 +5,6 @@
 
 class Collider : public Component{
 public:
-	bool DebugRender;
 
 	Vector2 position;
 	float radius;

@@ -15,6 +15,7 @@ void Turret::shoot(){
 }
 
 void Turret::update(float deltaTime){
+	cooldown.Update(deltaTime);
 	auto input = Master::input;
 	if (input->IsKeyDown(aie::INPUT_KEY_Q)){
 		transform.Rotation += rotationSpeed * deltaTime;
@@ -25,7 +26,10 @@ void Turret::update(float deltaTime){
 	}
 
 	if (input->WasKeyPressed(aie::INPUT_KEY_SPACE)) {
-		shoot();
+		if(cooldown.hasRunOut){
+			shoot();
+			cooldown.Reset();
+		}
 	}
 }
 
@@ -33,7 +37,7 @@ void Turret::draw(aie::Renderer2D& render){
 	render.DrawSpriteTransformed3x3(texture, transform.globalTransform);
 }
 
-Turret::Turret(){
+Turret::Turret() : cooldown(0.5f){
 	texture = new aie::Texture("./textures/barrelBeige.png");
 }
 

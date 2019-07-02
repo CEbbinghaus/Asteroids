@@ -6,7 +6,7 @@ class Bullet : public GameObject
 {
 	aie::Texture* texture;
 
-	float speed = 10.0f;
+	float speed = 1000.0f;
 	float lifeSpan = 5.0f;
 
 public:

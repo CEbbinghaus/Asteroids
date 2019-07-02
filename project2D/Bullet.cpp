@@ -8,7 +8,7 @@ void Bullet::OnCollision(GameObject& other){
 }
 
 void Bullet::update(float deltaTime){
-	transform.Position += Direction * speed;
+	transform.Position += Direction * (speed * deltaTime);
 	lifeSpan -= deltaTime;
 	if(lifeSpan <= 0.0f){
 		isActive = false;

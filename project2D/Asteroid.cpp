@@ -7,15 +7,21 @@ void Asteroid::update(float deltaTime){
 	Collider* collider = (Collider*)components.first();
 	collider->radius = radius;
 
-	transform.Position += velocity;
+	transform.Position += velocity * (speed * deltaTime);
 
 
-	if (transform.Position.x + radius < 0)transform.Position.x = Master::application->GetWindowWidth() + radius;
+	if (transform.Position.x < 0)transform.Position.x = Master::application->GetWindowWidth();
+	if (transform.Position.x > Master::application->GetWindowWidth())transform.Position.x = 0;
+	if (transform.Position.y < 0)transform.Position.y = Master::application->GetWindowHeight();
+	if (transform.Position.y > Master::application->GetWindowHeight())transform.Position.y = 0;
+	
+	
+	/*if (transform.Position.x + radius < 0)transform.Position.x = Master::application->GetWindowWidth() + radius;
 	if (transform.Position.x - radius > Master::application->GetWindowWidth())transform.Position.x = -radius;
 	if (transform.Position.y + radius < 0)transform.Position.y = Master::application->GetWindowHeight() + radius;
 	if (transform.Position.y - radius > Master::application->GetWindowHeight())transform.Position.y = -radius;
-
-	transform.Rotation += 0.01f;
+*/
+	transform.Rotation += rotationVelocity * deltaTime;
 }
 
 void Asteroid::draw(aie::Renderer2D& renderer){
@@ -48,7 +54,7 @@ void Asteroid::OnCollision(GameObject& other){
 		switch (size)
 		{
 			case 3:
-				amount = Random.get<int>(2, 4);
+				amount = Random.get<int>(2, 5);
 			break;
 
 			case 2:
@@ -71,11 +77,15 @@ void Asteroid::OnCollision(GameObject& other){
 }
 
 Asteroid::Asteroid(int a_size, Vector2 dir, Vector2 pos) : GameObject({new Collider(*this, Vector2(1.0f, 1.0f), 10)}){
-	size = a_size;
-	float min = (float)size * 20.0f;
+	rotationVelocity = Random.get<float>(0.0f, 0.3f);
 	id = (char)Object::asteroid;
+	
+	size = a_size;
+	speed = ((4 - size) * Asteroids::instance->level + 1) * 20;
 
-	radius = Random.get<float>(min, min * 2);
+	float min = (float)size * 40.0f;
+
+	radius = Random.get<float>(min, min * 1.3);
 
 	velocity = dir;
 

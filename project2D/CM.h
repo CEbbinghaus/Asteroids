@@ -6,7 +6,11 @@
 class CM : public Manager{
 	atyp::Array<Collider*> colliders;
 public:
+
+
 	static CM* Instance;
+
+	bool debug;
 
 	void RegisterCollider(Collider*);
 	void RemoveCollider(Collider*);

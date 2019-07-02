@@ -23,11 +23,11 @@ void CM::update(float deltaTime){
 }
 
 void CM::draw(aie::Renderer2D& renderer){
+	if(!debug)return;
 	renderer.SetRenderColour(0.0f, 0.5f, 0.2f, 0.3f);
 	for (Collider* c : colliders) {
 		Vector2 finalPos = c->GetWorldPosition();
-		if(c->DebugRender)
-			renderer.DrawCircle(finalPos.x, finalPos.y, c->radius);
+		renderer.DrawCircle(finalPos.x, finalPos.y, c->radius);
 	}
 	renderer.SetRenderColour(1.0f, 1.0f, 1.0f);
 }
@@ -45,6 +45,7 @@ bool CM::Collide(Collider * a, Collider * b){
 CM::CM(){
 	if(Instance)throw "There is Already a Instance of the Collision Manager";
 	Instance = this;
+	debug = false;
 }
 
 

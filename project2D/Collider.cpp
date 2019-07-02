@@ -9,7 +9,6 @@ Vector2 Collider::GetWorldPosition()
 }
 
 Collider::Collider(GameObject& parent, Vector2 pos, float rad) : Component(parent){
-	DebugRender = true;
 	position = pos;
 	radius = rad;
 	CM::Instance->RegisterCollider(this);

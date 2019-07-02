@@ -2,6 +2,7 @@
 
 #include "Includes.h"
 #include "Turret.h"
+#include "Timer.h"
 
 class Player : public GameObject
 {
@@ -12,9 +13,13 @@ public:
 	void update(float deltaTime);
 	void draw(aie::Renderer2D& renderer);
 	void OnCollision(GameObject&);
+	
+	char lives;
 private:
 
 	Turret turret;
+
+	Timer invunerability;
 
 	aie::Texture* m_texture;
 
@@ -24,7 +29,7 @@ private:
 	Vector2 velocity;
 	float rotVel;
 
-	float MoveSpeed = 25.0f;
-	float RotationSpeed = 0.4f;
+	float MoveSpeed = 2000.0f;
+	float RotationSpeed = 20.00f;
 };
 

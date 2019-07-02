@@ -13,7 +13,9 @@ static Vector2 getRandomScreenPos(){
 
 class Asteroid : public GameObject
 {
+	float speed;
 
+	float rotationVelocity;
 
 	float radius;
 	atyp::Array<float> points;
