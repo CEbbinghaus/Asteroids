@@ -1,9 +1,9 @@
 #pragma once
 #include <memory>
 #include "atyp_Array.h"
-#include "Vector3.h"
-#include "Vector2.h"
-#include "Matrix3.h"
+#include "atyp_Vector3.h"
+#include "atyp_Vector2.h"
+#include "atyp_Matrix3.h"
 
 class GameObject;
 
