@@ -26,8 +26,9 @@ GameObject::GameObject() : transform(*this){
 	isActive = true;
 }
 
-GameObject::GameObject(atyp::Array<Component*> a_components) : transform(*this) {
+GameObject::GameObject(Array<Component*> a_components) : transform(*this) {
 	id = -1;
+	
 	components = a_components;
 	isActive = true;
 }

@@ -1,12 +1,13 @@
 #include "Master.h"
-#include "CM.h"
+#include "ColliderManager.h"
+#include "PhysicsManager.h"
 
 Master* Master::instance = nullptr;
 
 aie::Input* Master::input = nullptr;
 aie::Application* Master::application = nullptr;
 Level* Master::level = nullptr;
-atyp::Array<Manager*> Master::managers = {};
+Array<Manager*> Master::managers = {};
 
 
 void Master::Update(float deltaTime){
@@ -43,21 +44,27 @@ void Master::LoadLevel(Level* a_level){
 }
 
 void Master::CreateGame(){
+	printf("Creating Game\n");
 	instance = new Master();
-	new CM();
+	new ColliderManager();
+	new PhysicsManager();
 }
 
 void Master::RunGame(){
-	instance->Run();
+	printf("Starting Game\n");
+	if(instance)
+		instance->Run();
 }
 
 void Master::DestroyGame(){
-	delete instance;
+	printf("Destroying Game\n");
+	if(instance)
+		delete instance;
 	instance = nullptr;
 }
 
 void Master::DeleteObject(GameObject* gm){
-	if(instance->tbDeleted.indexOf(gm) == -1)
+	if(instance && instance->tbDeleted.indexOf(gm) == -1)
 		instance->tbDeleted.push(gm);
 }
 
@@ -66,11 +73,12 @@ Master::Master() : Game("Asteroids", 1920, 1080, false), camera(*(new aie::Rende
 	if(instance)throw "There can only be One Instance of the Game";
 	input = aie::Input::GetInstance();
 	application = aie::Application::GetInstance();
-	tbDeleted = atyp::Array<GameObject*>(0);
+	tbDeleted = Array<GameObject*>(0);
 }
 
 
 Master::~Master(){
+	printf("Deleting everything\n");
 	delete& camera;
 	for(Manager* m : managers){
 		delete m;
@@ -79,4 +87,7 @@ Master::~Master(){
 
 Manager::Manager(){
 	Master::RegisterManager(this);
+}
+
+Manager::~Manager(){
 }

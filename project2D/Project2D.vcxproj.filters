@@ -36,7 +36,7 @@
     <ClCompile Include="Asteroid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CM.cpp">
+    <ClCompile Include="ColliderManager.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
@@ -113,7 +113,7 @@
     <ClInclude Include="Asteroid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CM.h">
+    <ClInclude Include="ColliderManager.h">
       <Filter>Engine\Headers</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">

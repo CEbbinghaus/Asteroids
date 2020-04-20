@@ -2,7 +2,7 @@
 
 #include "Asteroids.h"
 #include "Font.h"
-#include "CM.h"
+#include "ColliderManager.h"
 
 Asteroids* Asteroids::instance = nullptr;
 
@@ -13,7 +13,7 @@ void Asteroids::update(float deltaTime){
 		Master::application->Quit();
 
 	if(Master::input->WasKeyPressed(aie::INPUT_KEY_F3))
-		CM::Instance->debug = !CM::Instance->debug;
+		ColliderManager::Instance->debug = !ColliderManager::Instance->debug;
 
 	if(Master::input->WasKeyPressed(aie::INPUT_KEY_F4))
 		Master::application->SetVSync(Vsync = !Vsync);

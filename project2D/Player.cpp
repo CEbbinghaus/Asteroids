@@ -2,11 +2,17 @@
 #include "Input.h"
 #include "Asteroids.h"
 
-Player::Player() : GameObject({new Collider(*this, Vector2(0.0f, 0.0f), 50.0f)}), invunerability(2.0f){
+Player::Player() : GameObject({new CircleCollider(*this, Vector2(0.0f, 0.0f), 50.0f), new Rigidbody(*this)}), invunerability(2.0f){
 	lives = 3;
 	id = (char)Object::player;
 	turret.transform.SetParent(this);
 	//turret.transform.Position = Vector2(0.0f, 0.0f);
+
+	rb = GetComponent<Rigidbody>();
+
+	CircleCollider* c = GetComponent<CircleCollider>();
+	if(c)
+		c->layerMask = 0b10;
 
 	rotVel = 0;
 	velocity = Vector2(0, 0);
@@ -52,8 +58,8 @@ void Player::update(float deltaTime){
 	}
 
 	velocity -= (velocity * 4.0f * deltaTime);
-	transform.Position += velocity * deltaTime;
-
+	//transform.Position += velocity * deltaTime;
+	rb->velocity = velocity;
 
 	if(transform.Position.x > Width)transform.Position.x = 0;
 	if(transform.Position.x < 0)transform.Position.x = Width;

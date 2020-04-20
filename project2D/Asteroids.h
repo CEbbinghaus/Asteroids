@@ -21,8 +21,8 @@ public:
 
 	bool Vsync;
 
-	atyp::Array<Asteroid*> activeAsteroids;
-	atyp::Array<Bullet*> bullets;
+	Array<Asteroid*> activeAsteroids;
+	Array<Bullet*> bullets;
 
 	Player player;
 	aie::Font* font32;

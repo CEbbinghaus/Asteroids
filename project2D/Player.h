@@ -3,6 +3,7 @@
 #include "Includes.h"
 #include "Turret.h"
 #include "Timer.h"
+#include "Rigidbody.h"
 
 class Player : public GameObject
 {
@@ -16,6 +17,8 @@ public:
 	
 	char lives;
 private:
+
+	Rigidbody* rb;
 
 	Turret turret;
 

@@ -1,10 +1,8 @@
 #include "Asteroid.h"
 #include "Asteroids.h"
 
-#include "Collider.h"
-
 void Asteroid::update(float deltaTime){
-	Collider* collider = (Collider*)components.first();
+	CircleCollider* collider = (CircleCollider*)components.first();
 	collider->radius = radius;
 
 	transform.Position += velocity * (speed * deltaTime);
@@ -67,7 +65,9 @@ void Asteroid::OnCollision(GameObject& other){
 			float finalRotation = RadianOffset + RadianAmount * i;
 			Vector2 direction = Vector2(sinf(finalRotation), cosf(finalRotation));
 			Vector2 currentPosition = *(Vector2*)(&(transform.globalTransform.Pos));
-			Asteroids::instance->activeAsteroids.push(new Asteroid(size - 1, direction, currentPosition + direction * Random.get<float>(radius / 2, radius)));
+			
+			Asteroid* a = new Asteroid(size - 1, direction, currentPosition + direction * Random.get<float>(radius / 2, radius));
+			Asteroids::instance->activeAsteroids.push(a);
 		}
 		Asteroids::instance->score += (100 * size);
 
@@ -76,10 +76,14 @@ void Asteroid::OnCollision(GameObject& other){
 	}
 }
 
-Asteroid::Asteroid(int a_size, Vector2 dir, Vector2 pos) : GameObject({new Collider(*this, Vector2(1.0f, 1.0f), 10)}){
+Asteroid::Asteroid(int a_size, Vector2 dir, Vector2 pos) : GameObject({new CircleCollider(*this, Vector2(1.0f, 1.0f), 10), new Rigidbody(*this)}){
 	rotationVelocity = Random.get<float>(0.0f, 0.3f);
 	id = (char)Object::asteroid;
 	
+	CircleCollider* c = GetComponent<CircleCollider>();
+	if(c)
+		c->layerMask = 0b11;
+
 	size = a_size;
 	speed = ((4 - size) * Asteroids::instance->level + 1) * 20;
 
@@ -97,7 +101,6 @@ Asteroid::Asteroid(int a_size, Vector2 dir, Vector2 pos) : GameObject({new Colli
 		points.push(Random.get<float>(0.3f, 1.0f));
 	}
 }
-
 
 Asteroid::~Asteroid(){
 	//Asteroids::instance->activeAsteroids.remove(this);

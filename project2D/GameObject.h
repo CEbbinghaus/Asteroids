@@ -2,12 +2,13 @@
 #include "atyp_Array.h"
 #include "Renderer2D.h"
 #include "Transform.h"
+#include <type_traits>
 
 class Component;
 
 class GameObject{
 	friend class Master;
-	friend class CM;
+	friend class ColliderManager;
 
 	void tick(float);
 	virtual void beforeUpdate(float);
@@ -24,7 +25,7 @@ class GameObject{
 
 
 protected:
-	atyp::Array<Component*> components;
+	Array<Component*> components;
 
 public:
 	char id;
@@ -33,8 +34,17 @@ public:
 	Transform transform;
 
 	GameObject();
-	GameObject(atyp::Array<Component*>);
+	GameObject(Array<Component*>);
 
+	template<typename T, typename = std::enable_if<std::is_base_of<Component, T>::value, T>::type>
+	T* GetComponent(){
+		for(Component* component: components){
+			if(component->GetType() == T::GetStaticType()){
+				return (T*)component;
+			}
+		}
+		return nullptr;
+	}
 
 	virtual ~GameObject();
 };

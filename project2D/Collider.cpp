@@ -1,5 +1,11 @@
+#include "Includes.h"
 #include "Collider.h"
-#include "CM.h"
+#include "ColliderManager.h"
+
+Symbol CircleCollider::type = Symbol("Collider.Circle");
+Symbol BoxCollider::type = Symbol("Collider.Box");
+Symbol LineCollider::type = Symbol("Collider.Line");
+Symbol Collider::type = Symbol("Collider.Base");
 
 Vector2 Collider::GetWorldPosition()
 {
@@ -8,12 +14,16 @@ Vector2 Collider::GetWorldPosition()
 	return Vector2(getParent().transform.globalTransform.Pos.x + position.x, getParent().transform.globalTransform.Pos.y + position.y);
 }
 
-Collider::Collider(GameObject& parent, Vector2 pos, float rad) : Component(parent){
+ColliderType Collider::GetColliderType(){
+	return (ColliderType)-1;
+}
+
+Collider::Collider(GameObject& parent, Vector2 pos, uint layer) : Component(parent), layerMask(layer){
 	position = pos;
-	radius = rad;
-	CM::Instance->RegisterCollider(this);
+	ColliderManager::Instance->RegisterCollider(this);
 }
 
 Collider::~Collider(){
-	CM::Instance->RemoveCollider(this);
+	if(ColliderManager::Instance)
+		ColliderManager::Instance->RemoveCollider(this);
 }

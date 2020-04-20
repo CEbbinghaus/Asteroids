@@ -18,7 +18,7 @@ class Asteroid : public GameObject
 	float rotationVelocity;
 
 	float radius;
-	atyp::Array<float> points;
+	Array<float> points;
 
 	Vector2 velocity;
 public:

@@ -17,6 +17,7 @@ void Turret::shoot(){
 void Turret::update(float deltaTime){
 	cooldown.Update(deltaTime);
 	auto input = Master::input;
+	
 	if (input->IsKeyDown(aie::INPUT_KEY_Q)){
 		transform.Rotation += rotationSpeed * deltaTime;
 	}
