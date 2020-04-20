@@ -152,5 +152,29 @@
     <ClInclude Include="Timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Libary\atyp_All.h">
+      <Filter>Libary</Filter>
+    </ClInclude>
+    <ClInclude Include="Libary\atyp_Matrix3.h">
+      <Filter>Libary</Filter>
+    </ClInclude>
+    <ClInclude Include="Libary\atyp_Matrix4.h">
+      <Filter>Libary</Filter>
+    </ClInclude>
+    <ClInclude Include="Libary\atyp_Matrixs.h">
+      <Filter>Libary</Filter>
+    </ClInclude>
+    <ClInclude Include="Libary\atyp_Vector2.h">
+      <Filter>Libary</Filter>
+    </ClInclude>
+    <ClInclude Include="Libary\atyp_Vector3.h">
+      <Filter>Libary</Filter>
+    </ClInclude>
+    <ClInclude Include="Libary\atyp_Vector4.h">
+      <Filter>Libary</Filter>
+    </ClInclude>
+    <ClInclude Include="Libary\atyp_Vectors.h">
+      <Filter>Libary</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

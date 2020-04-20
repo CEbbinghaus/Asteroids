@@ -210,6 +210,7 @@
     <ClInclude Include="Includes.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="Rigidbody.h" />
+    <ClInclude Include="Libary\atyp_All.h" />
     <ClInclude Include="Libary\atyp_Array.h" />
     <ClInclude Include="Libary\atyp_Assert.h" />
     <ClInclude Include="Libary\atyp_BinaryTree.h" />
@@ -218,11 +219,18 @@
     <ClInclude Include="Libary\atyp_Heap.h" />
     <ClInclude Include="Libary\atyp_List.h" />
     <ClInclude Include="Libary\atyp_Matrix.h" />
+    <ClInclude Include="Libary\atyp_Matrix3.h" />
+    <ClInclude Include="Libary\atyp_Matrix4.h" />
+    <ClInclude Include="Libary\atyp_Matrixs.h" />
     <ClInclude Include="Libary\atyp_Queue.h" />
     <ClInclude Include="Libary\atyp_Stack.h" />
     <ClInclude Include="Libary\atyp_String.h" />
     <ClInclude Include="Libary\atyp_Tree.h" />
     <ClInclude Include="Libary\atyp_Vector.h" />
+    <ClInclude Include="Libary\atyp_Vector2.h" />
+    <ClInclude Include="Libary\atyp_Vector3.h" />
+    <ClInclude Include="Libary\atyp_Vector4.h" />
+    <ClInclude Include="Libary\atyp_Vectors.h" />
     <ClInclude Include="Master.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Timer.h" />
