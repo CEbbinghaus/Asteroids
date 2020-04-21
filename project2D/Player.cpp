@@ -11,8 +11,9 @@ Player::Player() : GameObject({new CircleCollider(*this, Vector2(0.0f, 0.0f), 50
 	rb = GetComponent<Rigidbody>();
 
 	CircleCollider* c = GetComponent<CircleCollider>();
+	
 	if(c)
-		c->layerMask = 0b10;
+		c->layerMask = Layer::one;
 
 	rotVel = 0;
 	velocity = Vector2(0, 0);

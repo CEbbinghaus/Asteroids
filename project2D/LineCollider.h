@@ -14,6 +14,10 @@ class LineCollider : public Collider {
         return type;
     }
 
+    Vector2 GetVector(){
+        return Vector2(sinf(rotation), cosf(rotation));
+    }
+
     LineCollider(GameObject& parent, Vector2 position, float rotation) : Collider(parent, position) {
         this->rotation = rotation;
     }

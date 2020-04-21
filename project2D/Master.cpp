@@ -17,7 +17,7 @@ void Master::Update(float deltaTime){
 	if (level)
 		level->tick(deltaTime);
 
-	while (tbDeleted.length) {
+	while(!tbDeleted.isEmpty()) {
 		GameObject* gm = tbDeleted.pop();
 		delete gm;
 	}

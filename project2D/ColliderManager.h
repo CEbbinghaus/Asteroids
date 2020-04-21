@@ -3,7 +3,13 @@
 #include "Master.h"
 #include "atyp_Array.h"
 
-using collideFunc = bool (*)(Vector2&, Collider*, Collider*);
+
+struct Colission{
+	Vector2 normal;
+	float depth;
+};
+
+using collideFunc = bool (*)(Colission&, Collider*, Collider*);
 
 class ColliderManager : public Manager{
 	Array<Collider*> colliders;
@@ -20,7 +26,7 @@ public:
 	void update(float);
 	void draw(aie::Renderer2D&);
 
-	bool Collide(Collider*, Collider*, Vector2&);
+	bool Collide(Collider*, Collider*, Colission&);
 
 	ColliderManager();
 	virtual ~ColliderManager() override;

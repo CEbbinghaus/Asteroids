@@ -2,23 +2,20 @@
 #include "Asteroids.h"
 
 void Asteroid::update(float deltaTime){
-	CircleCollider* collider = (CircleCollider*)components.first();
-	collider->radius = radius;
-
-	transform.Position += velocity * (speed * deltaTime);
+	//transform.Position += velocity * (speed * deltaTime);
 
 
 	if (transform.Position.x < 0)transform.Position.x = Master::application->GetWindowWidth();
 	if (transform.Position.x > Master::application->GetWindowWidth())transform.Position.x = 0;
 	if (transform.Position.y < 0)transform.Position.y = Master::application->GetWindowHeight();
 	if (transform.Position.y > Master::application->GetWindowHeight())transform.Position.y = 0;
-	
-	
-	/*if (transform.Position.x + radius < 0)transform.Position.x = Master::application->GetWindowWidth() + radius;
-	if (transform.Position.x - radius > Master::application->GetWindowWidth())transform.Position.x = -radius;
-	if (transform.Position.y + radius < 0)transform.Position.y = Master::application->GetWindowHeight() + radius;
-	if (transform.Position.y - radius > Master::application->GetWindowHeight())transform.Position.y = -radius;
-*/
+		
+		
+		/*if (transform.Position.x + radius < 0)transform.Position.x = Master::application->GetWindowWidth() + radius;
+		if (transform.Position.x - radius > Master::application->GetWindowWidth())transform.Position.x = -radius;
+		if (transform.Position.y + radius < 0)transform.Position.y = Master::application->GetWindowHeight() + radius;
+		if (transform.Position.y - radius > Master::application->GetWindowHeight())transform.Position.y = -radius;
+	*/
 	transform.Rotation += rotationVelocity * deltaTime;
 }
 
@@ -49,8 +46,7 @@ void Asteroid::draw(aie::Renderer2D& renderer){
 void Asteroid::OnCollision(GameObject& other){
 	if (other.id == (char)Object::bullet) {
 		int amount = 0;
-		switch (size)
-		{
+		switch (size){
 			case 3:
 				amount = Random.get<int>(2, 5);
 			break;
@@ -76,22 +72,23 @@ void Asteroid::OnCollision(GameObject& other){
 	}
 }
 
-Asteroid::Asteroid(int a_size, Vector2 dir, Vector2 pos) : GameObject({new CircleCollider(*this, Vector2(1.0f, 1.0f), 10), new Rigidbody(*this)}){
+Asteroid::Asteroid(int a_size, Vector2 dir, Vector2 pos) : GameObject({new CircleCollider(*this, Vector2(1.0f, 1.0f), 10), new Rigidbody(*this, dir)}){
 	rotationVelocity = Random.get<float>(0.0f, 0.3f);
 	id = (char)Object::asteroid;
 	
 	CircleCollider* c = GetComponent<CircleCollider>();
 	if(c)
-		c->layerMask = 0b11;
+		c->layerMask = Layer::default | Layer::one;
 
 	size = a_size;
 	speed = ((4 - size) * Asteroids::instance->level + 1) * 20;
+	GetComponent<Rigidbody>()->velocity = speed * dir;
 
 	float min = (float)size * 40.0f;
 
-	radius = Random.get<float>(min, min * 1.3);
 
-	velocity = dir;
+	GetComponent<CircleCollider>()->radius = radius = Random.get<float>(min, min * 1.3);
+	// velocity = dir;
 
 	transform.Position = pos;
 	int minP = 3 *  size;

@@ -6,7 +6,7 @@
 class PhysicsManager : public Manager{
 	Array<Rigidbody*> rigidbodies;
 public:
-
+	static float gravity;
 	static PhysicsManager* Instance;
 
 	void RegisterRigidBody(Rigidbody*);

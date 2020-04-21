@@ -3,7 +3,7 @@
 
 Symbol Rigidbody::type = Symbol("Rigidbody");
 
-Rigidbody::Rigidbody(GameObject& parent, Vector2 initialVelocity): Component(parent){
+Rigidbody::Rigidbody(GameObject& parent, Vector2 initialVelocity, bool useGravity): Component(parent), useGravity(useGravity){
     if(PhysicsManager::Instance != nullptr)
         PhysicsManager::Instance->RegisterRigidBody(this);
     velocity = initialVelocity;

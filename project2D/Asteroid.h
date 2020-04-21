@@ -20,7 +20,7 @@ class Asteroid : public GameObject
 	float radius;
 	Array<float> points;
 
-	Vector2 velocity;
+	///Vector2 velocity;
 public:
 
 	int size;

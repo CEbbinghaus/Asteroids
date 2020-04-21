@@ -1,6 +1,7 @@
 #include "PhysicsManager.h"
 
 PhysicsManager* PhysicsManager::Instance = nullptr;
+float PhysicsManager::gravity = 9.8;
 
 void PhysicsManager::RegisterRigidBody(Rigidbody* col){
 	rigidbodies.push(col);
@@ -13,6 +14,9 @@ void PhysicsManager::RemoveRigidbody(Rigidbody* col){
 void PhysicsManager::update(float deltaTime){
 	for(int i = 0; i < rigidbodies.length; ++i){
 		Rigidbody* r = rigidbodies[i];
+		if(r->useGravity)
+			r->velocity -= (Vector2::up() * gravity) * deltaTime;
+			
 		r->getParent().transform.Position += r->velocity * deltaTime;
 	}
 }

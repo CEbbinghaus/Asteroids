@@ -26,7 +26,7 @@ Bullet::Bullet() : GameObject({new CircleCollider(*this, Vector2(), 3.0f)}) {
 
 	CircleCollider* c = GetComponent<CircleCollider>();
 	if(c)
-		c->layerMask = 0b01;
+		c->layerMask = Layer::default;
 }
 
 

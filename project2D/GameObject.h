@@ -11,6 +11,10 @@ class GameObject{
 	friend class ColliderManager;
 
 	void tick(float);
+	Array<Component*> components;
+
+
+protected:
 	virtual void beforeUpdate(float);
 	virtual void update(float dt);
 	virtual void afterUpdate(float);
@@ -23,10 +27,6 @@ class GameObject{
 
 	virtual void OnCollision(GameObject& other);
 
-
-protected:
-	Array<Component*> components;
-
 public:
 	char id;
 	bool isActive;
@@ -38,7 +38,7 @@ public:
 
 	template<typename T, typename = std::enable_if<std::is_base_of<Component, T>::value, T>::type>
 	T* GetComponent(){
-		for(Component* component: components){
+		for(Component* component : components){
 			if(component->GetType() == T::GetStaticType()){
 				return (T*)component;
 			}

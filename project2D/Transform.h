@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include "atyp_Array.h"
+#include <atyp_Array.h>
 #include <atyp_Vector3.h>
 #include <atyp_Vector2.h>
 #include <atyp_Matrix3.h>

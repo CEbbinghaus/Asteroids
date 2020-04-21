@@ -3,6 +3,7 @@
 #include "Asteroids.h"
 #include "Font.h"
 #include "ColliderManager.h"
+#include "Square.h"
 
 Asteroids* Asteroids::instance = nullptr;
 
@@ -18,9 +19,9 @@ void Asteroids::update(float deltaTime){
 	if(Master::input->WasKeyPressed(aie::INPUT_KEY_F4))
 		Master::application->SetVSync(Vsync = !Vsync);
 
-	if(activeAsteroids.isEmpty() && timeout.hasRunOut){
-		timeout.Reset();
-	}
+	// if(activeAsteroids.isEmpty() && timeout.hasRunOut){
+	// 	timeout.Reset();
+	// }
 	//transform.Rotation += 0.01f;
 }
 
@@ -61,7 +62,7 @@ void Asteroids::SpawnAsteroids(int amount){
 
 void Asteroids::UpdateLevel(){
 	++level;
-	SpawnAsteroids(level * 3 + 2);
+	//SpawnAsteroids(level * 3 + 2);
 	player.lives++;
 }
 
@@ -74,6 +75,13 @@ Asteroids::Asteroids() : timeout(2, std::bind(&Asteroids::UpdateLevel, this)){
 	playerTexture = new aie::Texture("./textures/ship.png");
 
 	Master::instance->LoadLevel(this);
+
+	///TODO: Change and fix Memory Leak
+	Square* s = new Square();
+	s->transform.Position = getRandomScreenPos();
+
+	s = new Square();
+	s->transform.Position = getRandomScreenPos();
 }
 
 Asteroids::~Asteroids(){

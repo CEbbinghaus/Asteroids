@@ -28,8 +28,9 @@ void ColliderManager::update(float deltaTime){
 			if(&a->getParent() == &b->getParent())continue;
 			if(!(a->layerMask & b->layerMask))continue;
 
-			Vector2 normal;
-			if(Collide(a, b, normal)){
+			Colission col;
+
+			if(Collide(a, b, col)){
 				GameObject& gma = a->getParent();
 				GameObject& gmb = b->getParent();
 
@@ -37,8 +38,8 @@ void ColliderManager::update(float deltaTime){
 				// a->getParent().OnCollision(b->getParent());
 				// b->getParent().OnCollision(a->getParent());
 
-				gma.transform.Position -= normal / 2;
-				gmb.transform.Position += normal / 2;
+				gma.transform.Position -= col.normal * (col.depth / 2);
+				gmb.transform.Position += col.normal * (col.depth / 2);
 
 			}
 		}
@@ -57,13 +58,23 @@ void ColliderManager::draw(aie::Renderer2D& renderer){
 	renderer.SetRenderColour(0.0f, 0.5f, 0.2f, 0.3f);
 	for (Collider* c : colliders) {
 		Vector2 finalPos = c->GetWorldPosition();
+
 		if(c->GetColliderType() == ColliderType::circle)
 			renderer.DrawCircle(finalPos.x, finalPos.y, ((CircleCollider*)c)->radius);
+
+		else if(c->GetColliderType() == ColliderType::box)
+			renderer.DrawBox(finalPos.x, finalPos.y, ((BoxCollider*)c)->GetWidth(), ((BoxCollider*)c)->GetHeight());
+		
+		else if(c->GetColliderType() == ColliderType::line){
+			LineCollider* l = (LineCollider*)c;
+			Vector2 direction = l->GetVector() * 1000;
+			renderer.DrawLine(finalPos.x - direction.x, finalPos.y - direction.y, finalPos.x + direction.x, finalPos.y + direction.y);
+		}
 	}
 	renderer.SetRenderColour(1.0f, 1.0f, 1.0f);
 }
 
-bool ColliderManager::Collide(Collider * a, Collider * b, Vector2& out){
+bool ColliderManager::Collide(Collider * a, Collider * b, Colission& out){
 	if(a == b)return false;
 	char aType = (char)a->GetColliderType();
 	char bType = (char)b->GetColliderType();
