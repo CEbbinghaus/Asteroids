@@ -1,9 +1,14 @@
 #pragma once
 
+#include <mlkrng.h>
 #include "Asteroids.h"
 #include "Font.h"
 #include "ColliderManager.h"
 #include "Square.h"
+#include "Circle.h"
+#include "Line.h"
+
+mlk::rng random = mlk::rng();
 
 Asteroids* Asteroids::instance = nullptr;
 
@@ -30,20 +35,20 @@ void Asteroids::draw(aie::Renderer2D& renderer){
 	sprintf_s(fps, 32, "%i", Master::application->GetFPS());
 	renderer.DrawText(font32, fps, Master::application->GetWindowWidth() - 100, Master::application->GetWindowHeight() - 32);
 
-	sprintf_s(fps, 32, "Score: %i", score);
-	renderer.DrawText(font32, fps, 0, Master::application->GetWindowHeight() - 32);
+	// sprintf_s(fps, 32, "Score: %i", score);
+	// renderer.DrawText(font32, fps, 0, Master::application->GetWindowHeight() - 32);
 
-	if(!timeout.hasRunOut){
-		sprintf_s(fps, 32, "%i", level);
-		renderer.DrawText(font200, fps, Master::application->GetWindowWidth() / 2 - 75, Master::application->GetWindowHeight() / 2);
-	}
+	// if(!timeout.hasRunOut){
+	// 	sprintf_s(fps, 32, "%i", level);
+	// 	renderer.DrawText(font200, fps, Master::application->GetWindowWidth() / 2 - 75, Master::application->GetWindowHeight() / 2);
+	// }
 
-	float offset = ((float)player.lives / 2);
-	for(int i = 0; i < player.lives; ++i){
-		float x = Master::application->GetWindowWidth() / 2 - (offset * 50 + 10);
-		float y = Master::application->GetWindowHeight() - 50;
-		renderer.DrawSprite(playerTexture, x + i * 50 + 10 , y, 50, 50);
-	}
+	// float offset = ((float)player.lives / 2);
+	// for(int i = 0; i < player.lives; ++i){
+	// 	float x = Master::application->GetWindowWidth() / 2 - (offset * 50 + 10);
+	// 	float y = Master::application->GetWindowHeight() - 50;
+	// 	renderer.DrawSprite(playerTexture, x + i * 50 + 10 , y, 50, 50);
+	// }
 }
 
 void Asteroids::SpawnAsteroids(int amount){
@@ -76,16 +81,25 @@ Asteroids::Asteroids() : timeout(2, std::bind(&Asteroids::UpdateLevel, this)){
 
 	Master::instance->LoadLevel(this);
 
-	///TODO: Change and fix Memory Leak
-	Square* s = new Square();
-	s->transform.Position = getRandomScreenPos();
+	///TODO: Change and fix Memory Leak	
+	for(int i = 0; i < 10; ++i){
+		Circle* c = new Circle(random.get<float>(10, 100));
+		c->transform.Position = getRandomScreenPos();
 
-	s = new Square();
-	s->transform.Position = getRandomScreenPos();
+		Square* s = new Square(random.get<float>(10, 100));
+		s->transform.Position = getRandomScreenPos();
+	}
+
+	// Line* l = new Line();
+	// l->transform.Position = Vector2(0, Master::application->GetWindowHeight() - 20);
+
+	// l = new Line();
+	// l->transform.Position = getRandomScreenPos();
 }
 
 Asteroids::~Asteroids(){
 	delete font32;
 	delete font200;
+	delete playerTexture;
 	instance = nullptr;
 }

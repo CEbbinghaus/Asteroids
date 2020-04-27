@@ -28,6 +28,16 @@ void Transform::updateGlobalTransform(){
 	//}
 }
 
+Matrix3 Transform::GetGlobalTransform(){
+	updateGlobalTransform();
+	return globalTransform;
+}
+
+Matrix3 Transform::GetLocalTransform(){
+	updateLocalTransform();
+	return localTransform;
+}
+
 void Transform::TransferParent(Transform* next){
 	if(Parent)
 		Parent->children.remove(this);
@@ -97,5 +107,5 @@ Transform::operator Matrix3(){
 
 Matrix3 operator*(Matrix3 & lhs, Transform & rhs)
 {
-	return Matrix3(lhs * rhs.globalTransform);
+	return Matrix3(lhs * rhs.GetGlobalTransform());
 }

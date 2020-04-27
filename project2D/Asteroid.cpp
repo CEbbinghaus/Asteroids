@@ -30,8 +30,8 @@ void Asteroid::draw(aie::Renderer2D& renderer){
 		--Index;
 		Vector3 next = Vector3(radius * lastRadius * sinf(Index * radOffset), radius * lastRadius * cosf(Index * radOffset), 1.0f);
 
-		prev = transform.globalTransform * prev;
-		next = transform.globalTransform * next;
+		prev = transform.GetGlobalTransform() * prev;
+		next = transform.GetGlobalTransform() * next;
 		renderer.DrawLine(prev.x, prev.y, next.x, next.y);
 		//float xPos =  transform.globalTransform.Pos.x + radius * *PRadius * sinf(Index * radOffset);
 		//float yPos =  transform.globalTransform.Pos.y + radius * *PRadius * cosf(Index * radOffset);
@@ -60,7 +60,7 @@ void Asteroid::OnCollision(GameObject& other){
 		for (int i = 0; i < amount; ++i) {
 			float finalRotation = RadianOffset + RadianAmount * i;
 			Vector2 direction = Vector2(sinf(finalRotation), cosf(finalRotation));
-			Vector2 currentPosition = *(Vector2*)(&(transform.globalTransform.Pos));
+			Vector2 currentPosition = *(Vector2*)(&(transform.GetGlobalTransform().Pos));
 			
 			Asteroid* a = new Asteroid(size - 1, direction, currentPosition + direction * Random.get<float>(radius / 2, radius));
 			Asteroids::instance->activeAsteroids.push(a);

@@ -16,6 +16,27 @@ void ColliderManager::RemoveCollider(Collider* col){
 	colliders.remove(col);
 }
 
+void ColliderManager::draw(aie::Renderer2D& renderer){
+	if(!debug)return;
+	renderer.SetRenderColour(0.0f, 0.5f, 0.2f, 0.3f);
+	for (Collider* c : colliders) {
+		Vector2 finalPos = c->GetWorldPosition();
+
+		if(c->GetColliderType() == ColliderType::circle)
+			renderer.DrawCircle(finalPos.x, finalPos.y, ((CircleCollider*)c)->radius);
+
+		else if(c->GetColliderType() == ColliderType::box)
+			renderer.DrawBox(finalPos.x, finalPos.y, ((BoxCollider*)c)->GetWidth(), ((BoxCollider*)c)->GetHeight());
+		
+		else if(c->GetColliderType() == ColliderType::line){
+			LineCollider* l = (LineCollider*)c;
+			Vector2 direction = l->GetVector() * 1000;
+			renderer.DrawLine(finalPos.x - direction.x, finalPos.y - direction.y, finalPos.x + direction.x, finalPos.y + direction.y);
+		}
+	}
+	renderer.SetRenderColour(1.0f, 1.0f, 1.0f);
+}
+
 void ColliderManager::update(float deltaTime){
 	Array<std::tuple<GameObject*, GameObject*>> needUpdate;
 
@@ -38,12 +59,42 @@ void ColliderManager::update(float deltaTime){
 				// a->getParent().OnCollision(b->getParent());
 				// b->getParent().OnCollision(a->getParent());
 
-				gma.transform.Position -= col.normal * (col.depth / 2);
-				gmb.transform.Position += col.normal * (col.depth / 2);
+				Vector2 penetration = col.normal * col.depth;
 
+				Rigidbody* rba = gma.GetComponent<Rigidbody>();
+				Rigidbody* rbb = gmb.GetComponent<Rigidbody>();
+
+				if(rba && rbb){
+
+					Vector2 relativeVelocity = rba->velocity - rbb->velocity;
+
+					if(relativeVelocity.magnitude() == 0)
+						relativeVelocity = Vector2::one();
+				
+					float just = 
+						Vector2::dot( -(1 + (rba->elasticity * rbb->elasticity)) * (relativeVelocity), col.normal)
+							/
+						Vector2::dot(col.normal, col.normal * ((1 / rba->mass) + (1 / rbb->mass)));
+
+					if(isnan(just)){
+						printf("Value was Nan");
+					}
+					gma.transform.Position -= penetration / 2;
+					gmb.transform.Position += penetration / 2;
+
+					rba->ApplyForce(col.normal * just);
+					rbb->ApplyForce(col.normal * -just);
+				}else{
+					if(rba){
+						gma.transform.Position += penetration;
+					}else{
+						gmb.transform.Position += penetration;
+					}
+				}
 			}
 		}
 	}
+
 	for(std::tuple<GameObject*, GameObject*>& tuple : needUpdate){
 		GameObject* a = std::get<0>(tuple);
 		GameObject* b = std::get<1>(tuple);
@@ -53,29 +104,9 @@ void ColliderManager::update(float deltaTime){
 	}
 }
 
-void ColliderManager::draw(aie::Renderer2D& renderer){
-	if(!debug)return;
-	renderer.SetRenderColour(0.0f, 0.5f, 0.2f, 0.3f);
-	for (Collider* c : colliders) {
-		Vector2 finalPos = c->GetWorldPosition();
-
-		if(c->GetColliderType() == ColliderType::circle)
-			renderer.DrawCircle(finalPos.x, finalPos.y, ((CircleCollider*)c)->radius);
-
-		else if(c->GetColliderType() == ColliderType::box)
-			renderer.DrawBox(finalPos.x, finalPos.y, ((BoxCollider*)c)->GetWidth(), ((BoxCollider*)c)->GetHeight());
-		
-		else if(c->GetColliderType() == ColliderType::line){
-			LineCollider* l = (LineCollider*)c;
-			Vector2 direction = l->GetVector() * 1000;
-			renderer.DrawLine(finalPos.x - direction.x, finalPos.y - direction.y, finalPos.x + direction.x, finalPos.y + direction.y);
-		}
-	}
-	renderer.SetRenderColour(1.0f, 1.0f, 1.0f);
-}
-
 bool ColliderManager::Collide(Collider * a, Collider * b, Colission& out){
 	if(a == b)return false;
+
 	char aType = (char)a->GetColliderType();
 	char bType = (char)b->GetColliderType();
 
@@ -84,11 +115,15 @@ bool ColliderManager::Collide(Collider * a, Collider * b, Colission& out){
 
 	int index = aType * (char)ColliderType::size + bType;
 	collideFunc function = collisionFunctions[index];
+	if(function == nullptr)return false;
 
 	if(aType < bType)
 		return function(out, a, b);
-	else
-		return function(out, b, a);
+	else{
+		bool v = function(out, b, a);
+		out.normal = -out.normal;
+		return v;
+	}
 }
 
 ColliderManager::ColliderManager(){

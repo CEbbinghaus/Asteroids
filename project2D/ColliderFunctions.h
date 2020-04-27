@@ -23,7 +23,7 @@ bool CircleCircle(Colission& out, Collider* a, Collider* b){
     	out.normal = Vector2( 1, 0 );
 	} else{
 		out.depth = ((ca.radius + cb.radius) - distance);
-		out.normal = (aPos - bPos).normalise();
+		out.normal = -(aPos - bPos).normalise();
 	}
 
 	return true;
@@ -34,6 +34,10 @@ bool CircleBox(Colission& out, Collider* a, Collider* b){
 	BoxCollider& bb = *(BoxCollider*)b;
 
 	Vector2 center = Vector2::clamp(ca.GetWorldPosition(), bb.min(), bb.max());
+
+	if(center == ca.GetWorldPosition()){
+		center = bb.GetWorldPosition();
+	}
 
 	Vector2 displacement = center - ca.GetWorldPosition();
 
@@ -50,7 +54,17 @@ bool CircleBox(Colission& out, Collider* a, Collider* b){
 bool CircleLine(Colission& out, Collider* a, Collider* b){
 	CircleCollider& ca = *(CircleCollider*)a;
 	LineCollider& lb = *(LineCollider*)b;
-	return false;
+
+	float position_dot_normal = Vector2::dot(ca.GetWorldPosition(), lb.GetNormal());
+
+	float distance = position_dot_normal - (lb.GetWorldPosition().magnitude() + ca.radius);
+
+	if (distance < 0.0f){
+		out.normal = -(lb.GetNormal());
+		out.depth = distance;
+		return true;
+	}else
+		return false;
 }
 
 bool BoxBox(Colission& out, Collider* a, Collider* b){
@@ -66,73 +80,35 @@ bool BoxBox(Colission& out, Collider* a, Collider* b){
 	Vector2 bmax = bb.max();
 	Vector2 amin = ba.min();
 	Vector2 bmin = bb.min();
-
+	
 	//immediately Dismiss Non Colliding Boxes
 	if(!(amax.x >= bmin.x && amin.x <= bmax.x &&
-	   amax.y >= bmin.y && amin.y <= bmax.y)){
+		 amax.y >= bmin.y && amin.y <= bmax.y)){
 		return false;
 	}
 
-	// Calculate half extents along x axis for each object
-	float a_extent = (amax.x - amin.x) / 2;
-	float b_extent = (bmax.x - bmin.x) / 2;
-	
-	// Calculate overlap on x axis
-	float x_overlap = a_extent + b_extent - abs( distance.x );
-	
-	// SAT test on x axis
-	if(x_overlap > 0){
-		// Calculate half extents along x axis for each object
-		float a_extent = (amax.y - amin.y) / 2;
-		float b_extent = (bmax.y - bmin.y) / 2;
-	
-		// Calculate overlap on y axis
-		float y_overlap = a_extent + b_extent - abs( distance.y );
-	
-		// SAT test on y axis
-		if(y_overlap > 0){
-			// Find out which axis is axis of least penetration
-			if(x_overlap > y_overlap){
-				// Point towards B knowing that n points from A to B
-				if(distance.x < 0)
-					out.normal = Vector2( -1, 0 );
-				else
-					out.normal = Vector2( 0, 0 );
+	Vector2 aextent = (amax - amin) / 2;
+	Vector2 bextent = (bmax - bmin) / 2;
 
-				out.depth = x_overlap;
-			}else{
-				// Point toward B knowing that n points from A to B
-				if(distance.y < 0)
-					out.normal = Vector2( 0, -1 );
-				else
-					out.normal = Vector2( 0, 1 );
+	Vector2 overlap = aextent + bextent - Vector2::Abs(distance);
 
-				out.depth = y_overlap;
-			}
-			return true;
-		}
+	if(overlap.x < overlap.y){
+		if(overlap.x > 0)
+			out.normal = Vector2(1, 0);
+		else
+			out.normal = Vector2(-1, 0);
+
+		out.depth = overlap.x;
+	}else{
+		if(overlap.y > 0)
+			out.normal = Vector2(0, 1);
+		else
+			out.normal = Vector2(0, -1);
+
+		out.depth = overlap.y;
 	}
-
-	// Vector2 aextent = (amax - amin) / 2;
-	// Vector2 bextent = (bmax - bmin) / 2;
-
-	// Vector2 overlap = aextent + bextent - Vector2::Abs(distance);
-
-	// if(overlap.x > overlap.y){
-	// 	if(overlap.x > 0)
-	// 		out.normal = Vector2(1, 0);
-	// 	else
-	// 		out.normal = Vector2(-1, 0);
-	// 	out.depth = overlap.x;
-	// }else{
-	// 	if(overlap.y > 0)
-	// 		out.normal = Vector2(0, 1);
-	// 	else
-	// 		out.normal = Vector2(0, -1);
-	// 	out.depth = overlap.y;
-	// }
-	// return true;
-
+	
+	return true;
 }
 
 bool BoxLine(Colission& out, Collider* a, Collider* b){

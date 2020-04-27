@@ -35,6 +35,10 @@ class BoxCollider : public Collider {
         return extents.y;
     }
 
+    void SetSize(const Vector2& value){
+        extents = value;
+    }
+
     Vector2 min(){
         return GetWorldPosition() - (0.5f * extents);
     }

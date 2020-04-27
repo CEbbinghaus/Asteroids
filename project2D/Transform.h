@@ -14,12 +14,14 @@ class Transform{
 	void updateLocalTransform();
 	void updateGlobalTransform();
 
+	Matrix3 globalTransform;
+	Matrix3 localTransform;
+
 public:
 	GameObject& gameObject;
 
-
-	Matrix3 globalTransform;
-	Matrix3 localTransform;
+	Matrix3 GetGlobalTransform();
+	Matrix3 GetLocalTransform();
 
 
 	static Transform* root;

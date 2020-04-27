@@ -70,7 +70,7 @@ void Player::update(float deltaTime){
 
 void Player::draw(aie::Renderer2D& renderer){
 	renderer.SetRenderColour(invunerability.hasRunOut ? 0xffffffff : 0xffffff58);
-	renderer.DrawSpriteTransformed3x3(m_texture, transform.globalTransform);
+	renderer.DrawSpriteTransformed3x3(m_texture, transform.GetGlobalTransform());
 	renderer.SetRenderColour(0xffffffff);
 }
 

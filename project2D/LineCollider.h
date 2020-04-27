@@ -18,7 +18,11 @@ class LineCollider : public Collider {
         return Vector2(sinf(rotation), cosf(rotation));
     }
 
-    LineCollider(GameObject& parent, Vector2 position, float rotation) : Collider(parent, position) {
+    Vector2 GetNormal(){
+        return Vector2(cosf(rotation), -sinf(rotation));
+    }
+
+    LineCollider(GameObject& parent, Vector2 position, float rotation = 0) : Collider(parent, position) {
         this->rotation = rotation;
     }
 

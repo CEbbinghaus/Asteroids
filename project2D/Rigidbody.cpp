@@ -7,6 +7,8 @@ Rigidbody::Rigidbody(GameObject& parent, Vector2 initialVelocity, bool useGravit
     if(PhysicsManager::Instance != nullptr)
         PhysicsManager::Instance->RegisterRigidBody(this);
     velocity = initialVelocity;
+    mass = 1;
+    elasticity = 1;
 }
 
 Rigidbody::~Rigidbody(){

@@ -7,6 +7,7 @@ class Rigidbody: public Component{
   public:
     Vector2 velocity;
     float mass;
+    float elasticity;
     bool useGravity;
 
     static Symbol GetStaticType() {
@@ -16,6 +17,10 @@ class Rigidbody: public Component{
         return type;
     }
     
+	virtual void ApplyForce(const Vector2& force){
+	    velocity += force / mass;
+    }
+
     Rigidbody(GameObject& parent, Vector2 = Vector2::zero(), bool = true);
     ~Rigidbody();
 };

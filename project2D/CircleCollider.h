@@ -8,6 +8,7 @@ class CircleCollider : public Collider{
   static Symbol type;
 
   public:
+    float radius;
 
     static Symbol GetStaticType(){
       return type;
@@ -21,7 +22,6 @@ class CircleCollider : public Collider{
       this->radius = radius;
     }
 
-    float radius;
 
     ColliderType GetColliderType() override{
         return ColliderType::circle;

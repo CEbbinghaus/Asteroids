@@ -15,7 +15,7 @@ void PhysicsManager::update(float deltaTime){
 	for(int i = 0; i < rigidbodies.length; ++i){
 		Rigidbody* r = rigidbodies[i];
 		if(r->useGravity)
-			r->velocity -= (Vector2::up() * gravity) * deltaTime;
+			r->velocity -= (Vector2::up() * gravity);
 			
 		r->getParent().transform.Position += r->velocity * deltaTime;
 	}

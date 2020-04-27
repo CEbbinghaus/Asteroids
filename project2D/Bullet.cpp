@@ -17,7 +17,7 @@ void Bullet::update(float deltaTime){
 }
 
 void Bullet::draw(aie::Renderer2D& render) {
-	render.DrawSpriteTransformed3x3(texture, transform.globalTransform);
+	render.DrawSpriteTransformed3x3(texture, transform.GetGlobalTransform());
 }
 
 Bullet::Bullet() : GameObject({new CircleCollider(*this, Vector2(), 3.0f)}) {
