@@ -9,6 +9,7 @@ Player::Player() : GameObject({new CircleCollider(*this, Vector2(0.0f, 0.0f), 50
 	//turret.transform.Position = Vector2(0.0f, 0.0f);
 
 	rb = GetComponent<Rigidbody>();
+	rb->useGravity = false;
 
 	CircleCollider* c = GetComponent<CircleCollider>();
 	

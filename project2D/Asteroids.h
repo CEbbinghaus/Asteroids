@@ -5,6 +5,9 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Timer.h"
+#include "Square.h"
+#include "Circle.h"
+#include "Line.h"
 
 enum class Object{
 	player,
@@ -23,6 +26,9 @@ public:
 
 	Array<Asteroid*> activeAsteroids;
 	Array<Bullet*> bullets;
+
+	Array<Circle*> circles;
+	Array<Square*> squares;
 
 	Player player;
 	aie::Font* font32;

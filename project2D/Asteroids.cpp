@@ -4,9 +4,6 @@
 #include "Asteroids.h"
 #include "Font.h"
 #include "ColliderManager.h"
-#include "Square.h"
-#include "Circle.h"
-#include "Line.h"
 
 mlk::rng random = mlk::rng();
 
@@ -85,9 +82,11 @@ Asteroids::Asteroids() : timeout(2, std::bind(&Asteroids::UpdateLevel, this)){
 	for(int i = 0; i < 10; ++i){
 		Circle* c = new Circle(random.get<float>(10, 100));
 		c->transform.Position = getRandomScreenPos();
+		circles.push(c);
 
 		Square* s = new Square(random.get<float>(10, 100));
 		s->transform.Position = getRandomScreenPos();
+		squares.push(s);
 	}
 
 	// Line* l = new Line();
@@ -101,5 +100,13 @@ Asteroids::~Asteroids(){
 	delete font32;
 	delete font200;
 	delete playerTexture;
+
+	for(Circle* c : circles){
+		delete c;
+	}
+	for(Square* s : squares){
+		delete s;
+	}
+	
 	instance = nullptr;
 }
